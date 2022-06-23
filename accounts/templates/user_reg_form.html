@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+        <h2> New user registration form: </h2>
+        </br>
+
+        <form method="post">
+            {% csrf_token %}
+
+              {{ form.as_p }}
+
+        <input style="color: blue;
+                    background: #ffffff;
+                    font-size: 20px;
+                    text-align: center"
+                    type="submit" name=""  value="REGISTER">
+        </form>
+
+
+{% endblock %}

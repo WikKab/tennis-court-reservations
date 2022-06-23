@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div>
+            <div class="content">
+                <h4>Content avaible only for registered users.
+                    Please Login</h4></br>
+
+                    <form method="post" action="{% url 'login' %}">
+                        {% csrf_token %}
+                        <label for="username"><p1>Username:</p1></label>
+                        <input style="color: blue;
+                                    background: white" type="text"
+                                    name="username" placeholder="Enter Username">
+                        </br>
+                        </br>
+
+                        <label for="password"><p1>Password:</p1></label>
+                        <input style="color: blue;
+                                    background: white" type="password"
+                                    name="password" placeholder="Your Password">
+
+                        <input style="color: blue;
+                                    background: #ffffff"
+                                    type="submit" name="" value="Login">
+                    </br></br>
+
+                    <p1>If you don't have an account yet, please
+                    <a href="{% url 'accounts_urls:register' %}"> REGISTER</a></p1>
+                    </br></br>
+                    </p1><p1>If you don't remember your password, then
+                    <a href="{% url 'password_reset' %}"> RESET PASSWORD</a></p1>
+                    </form>
+            </div>
+        </div>
+
+
+{% endblock %}
+
+
+
+
+<!--<form method="post">-->
+<!--    {% csrf_token %}-->
+<!--    {{form.as_p}}-->
+<!--    <input type="submit" value="Login">-->
+<!--</form>-->

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h3 class="content">You have been logged out.</h3>
+
+      <meta http-equiv = "refresh" content = "3; url = {% url 'reservations_urls:index-list-view' %}" />
+
+      <p style="text-align: center">This page will redirect you in 3 seconds.</p>
+
+
+{% endblock %}
+
+
+
+
