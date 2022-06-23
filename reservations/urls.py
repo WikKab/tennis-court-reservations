@@ -7,7 +7,7 @@ app_name = 'reservations_urls'
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('korty/', views.CourtsListView.as_view(), name='korty2'),
+    path('courts/', views.CourtsListView.as_view(), name='courts'),
 
     path(
         'reserved-courts-list-view/',
@@ -23,5 +23,7 @@ urlpatterns = [
     path('logout/', views.Logout.as_view(), name='logout'),
 
     path('reservation-form/', views.CreateReservationFormView.as_view(), name='reservation-form'),
+
+    path('add-court/', views.AddCourtFormView.as_view(), name='add-court'),
 
 ]

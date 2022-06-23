@@ -2,12 +2,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView
 
-from reservations.forms import CreateReservationModelForm
+from reservations.forms import CreateReservationModelForm, AddCourtModelForm
 from reservations.models import TennisCourt, Reservations
 
 
 class CourtsListView(ListView):
-    template_name = 'korty.html'
+    template_name = 'courts.html'
     model = TennisCourt
 
 
@@ -45,3 +45,9 @@ class CreateReservationFormView(LoginRequiredMixin, FormView):
     #     result = super().form_valid(form)
     #     form.save()
     #     return result
+
+
+class AddCourtFormView(LoginRequiredMixin, FormView):
+    template_name = 'add_court_form.html'
+    form_class = AddCourtModelForm
+    success_url = reverse_lazy('korty')
