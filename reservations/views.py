@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView
+from django.views.generic import ListView, FormView, DetailView
 
 from reservations.forms import CreateReservationModelForm, AddCourtModelForm
 from reservations.models import TennisCourt, Reservations

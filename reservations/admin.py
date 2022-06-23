@@ -19,7 +19,7 @@ class ReservationsAdmin(admin.ModelAdmin):
         'object',
         'reservation_start',
         'reservation_end',
-        'reservation_cost',
+        # 'reservation_cost',
     )
     list_display_links = ('id',)
     list_per_page = 20

@@ -45,8 +45,6 @@ INSTALLED_APPS = [
 
 ]
 
-
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -109,13 +107,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pl-en'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Warsaw'
 
-USE_L10N = True
-
-USE_I18N = True
+USE_L10N = False
+#
+USE_I18N = False
 
 USE_TZ = True
 
@@ -141,4 +139,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
 
 SITE_ID = 1
+
+TIME_INPUT_FORMATS = ['%H.%M']
+DATE_INPUT_FORMATS = ['%d/%m/%Y']
+
 
