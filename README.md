@@ -1,3 +1,3 @@
-# tennis_courts
+# tennis_courts_reservations_system
 
-projekt końcowy
+Final Project at SDA Development / Poland
