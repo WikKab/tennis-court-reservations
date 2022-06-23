@@ -22,4 +22,6 @@ urlpatterns = [
 
     path('logout/', views.Logout.as_view(), name='logout'),
 
+    path('reservation-form/', views.CreateReservationFormView.as_view(), name='reservation-form'),
+
 ]

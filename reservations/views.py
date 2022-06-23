@@ -1,5 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView
+from django.urls import reverse_lazy
+from django.views.generic import ListView, FormView
+
+from reservations.forms import CreateReservationModelForm
 from reservations.models import TennisCourt, Reservations
 
 
@@ -31,3 +34,14 @@ class Login(ListView):
 class Logout(ListView):
     template_name = 'logout.html'
     model = TennisCourt
+
+
+class CreateReservationFormView(LoginRequiredMixin, FormView):
+    template_name = 'reservation_form.html'
+    form_class = CreateReservationModelForm
+    success_url = reverse_lazy('reservations')
+
+    # def form_valid(self, form):
+    #     result = super().form_valid(form)
+    #     form.save()
+    #     return result
