@@ -10,6 +10,8 @@ urlpatterns = [
 
     path('courts/', views.CourtsListView.as_view(), name='courts'),
 
+    path('courts-details/', views.CourtsListDetailView.as_view(), name='courts-details'),
+
     path(
         'reserved-courts-list-view/',
         views.ReservedCourtsListView.as_view(),

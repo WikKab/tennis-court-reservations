@@ -261,7 +261,7 @@ justify-content: right;
         </div>
         <div class="navbar-header">
             {% if user.is_authenticated %}
-            <a class="navbar-brand" href="{% url 'reservations_urls:courts' %}">Courts List</a>
+            <a class="navbar-brand" href="{% url 'reservations_urls:courts-details' %}">Courts List</a>
             <a class="navbar-brand"
                href="{% url 'reservations_urls:reserved_courts_list_views' %}"> Current reservations</a>
             <a class="navbar-brand" href="{% url 'reservations_urls:reservation-form' %}">Reservation System</a>

@@ -12,6 +12,11 @@ class CourtsListView(ListView):
     model = TennisCourt
 
 
+class CourtsListDetailView(ListView):
+    template_name = 'courts_details.html'
+    model = TennisCourt
+
+
 class IndexListView(ListView):
     template_name = 'index.html'
     model = Reservations
@@ -50,7 +55,7 @@ class CreateReservationFormView(LoginRequiredMixin, FormView):
 
 class AddCourtFormView(PermissionRequiredMixin, FormView):
     permission_required = 'reservations_urls:add-court'
-    permission_denied_message = 'You do not have permisions to do it.'
+    permission_denied_message = 'You do not have permissions to do it.'
 
     template_name = 'add_court_form.html'
     form_class = AddCourtModelForm

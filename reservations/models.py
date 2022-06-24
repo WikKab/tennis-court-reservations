@@ -1,7 +1,6 @@
 from django.db import models
 
 
-
 class TennisCourt(models.Model):
     CITY = [
         ("Kraków", "Kraków"),
