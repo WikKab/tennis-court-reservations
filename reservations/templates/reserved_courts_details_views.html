@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+ <h2>Courts Details: </h2>
+
+ <table class="table table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th>Object</th>
+        <th>Reservation Date</th>
+        <th>Reservation Starts</th>
+        <th>Reservation Ends</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for el in object_list %}
+        <tr>
+          <td>{{ el.object }}</td>
+          <td>{{ el.reservation_date }}</td>
+          <td>{{ el.reservation_start }}</td>
+          <td>{{ el.reservation_end }}</td>
+        </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

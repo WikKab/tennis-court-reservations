@@ -27,6 +27,11 @@ class ReservedCourtsListView(LoginRequiredMixin, ListView):
     model = Reservations
 
 
+class ReservedCourtsDetailsView(LoginRequiredMixin, ListView):
+    template_name = 'reserved_courts_details_views.html'
+    model = Reservations
+
+
 class ReservationSystemListView(LoginRequiredMixin, ListView):
     template_name = 'reservations_page.html'
     model = TennisCourt

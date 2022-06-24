@@ -27,8 +27,6 @@ class Reservations(models.Model):
         TennisCourt, on_delete=models.CASCADE, related_name="reservations", blank=False, null=False
     )
     reservation_date = models.DateField()
-    # reservation_start = models.TimeField()
-    # reservation_end = models.TimeField()
     reservation_start = models.TimeField()
     reservation_end = models.TimeField()
 

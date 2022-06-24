@@ -243,6 +243,35 @@ display: flex;
 align-items: right;
 justify-content: right;
 }
+
+
+th {
+    background-color:  #ffe6e6;
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    font-style: italic;
+    font-weight: bold;
+
+ }
+
+td {
+  background-color:  #330000;
+  text-align: center;
+ }
+
+tr{
+
+}
+
+
+.table-bordered {
+border: 2px solid black;
+border-collapse: collapse;
+}
+
+
+
     </style>
 </head>
 
@@ -263,7 +292,7 @@ justify-content: right;
             {% if user.is_authenticated %}
             <a class="navbar-brand" href="{% url 'reservations_urls:courts-details' %}">Courts List</a>
             <a class="navbar-brand"
-               href="{% url 'reservations_urls:reserved_courts_list_views' %}"> Current reservations</a>
+               href="{% url 'reservations_urls:reserved_courts_details_views' %}"> Current reservations</a>
             <a class="navbar-brand" href="{% url 'reservations_urls:reservation-form' %}">Reservation System</a>
 
 

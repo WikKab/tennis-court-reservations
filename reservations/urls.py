@@ -17,6 +17,12 @@ urlpatterns = [
         views.ReservedCourtsListView.as_view(),
         name='reserved_courts_list_views'),
 
+    path(
+        'reserved-courts-details-view/',
+        views.ReservedCourtsDetailsView.as_view(),
+        name='reserved_courts_details_views'),
+
+
     path('index/', views.IndexListView.as_view(), name='index-list-view'),
 
     path('reservations/', views.ReservationSystemListView.as_view(), name='reservations'),
