@@ -262,15 +262,21 @@ justify-content: right;
         <div class="navbar-header">
             {% if user.is_authenticated %}
             <a class="navbar-brand" href="{% url 'reservations_urls:courts' %}">Courts List</a>
-            <a class="navbar-brand" href="{% url 'reservations_urls:add-court' %}">Add New Court</a>
             <a class="navbar-brand"
                href="{% url 'reservations_urls:reserved_courts_list_views' %}"> Current reservations</a>
             <a class="navbar-brand" href="{% url 'reservations_urls:reservation-form' %}">Reservation System</a>
+
+
             {% else %}
             <a class="navbar-brand" href="{% url 'reservations_urls:courts' %}">Courts List</a>
             <a class="navbar-brand"
                href="{% url 'reservations_urls:reserved_courts_list_views' %}"> Current reservations</a>
             <a class="navbar-brand" href="{% url 'reservations_urls:reservation-form' %}">Reservation System</a>
+            {% endif %}
+
+
+            {% if perms.foo %}
+            <a class="navbar-brand" href="{% url 'reservations_urls:add-court' %}">Add New Court</a>
             {% endif %}
 
         </div>

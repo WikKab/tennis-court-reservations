@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView, DetailView
-
+from django.views.generic import ListView, FormView
 from reservations.forms import CreateReservationModelForm, AddCourtModelForm
 from reservations.models import TennisCourt, Reservations
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class CourtsListView(ListView):
@@ -48,7 +48,10 @@ class CreateReservationFormView(LoginRequiredMixin, FormView):
         return result
 
 
-class AddCourtFormView(LoginRequiredMixin, FormView):
+class AddCourtFormView(PermissionRequiredMixin, FormView):
+    permission_required = 'reservations_urls:add-court'
+    permission_denied_message = 'You do not have permisions to do it.'
+
     template_name = 'add_court_form.html'
     form_class = AddCourtModelForm
     success_url = reverse_lazy('reservations_urls:courts')
@@ -58,6 +61,8 @@ class AddCourtFormView(LoginRequiredMixin, FormView):
         form.save()
         return result
 
+    def get_test_func(self):
+        return self.request.user.username.startwith('admin')
 
 #
 # def get_name(request):
@@ -70,4 +75,4 @@ class AddCourtFormView(LoginRequiredMixin, FormView):
 #         request,
 #         template_name='form.html',
 #         context={'form': DateForm}
-#     )
+#
