@@ -5,8 +5,12 @@
 <div class="content">
 <h2>Make a reservation: </h2></br>
 
-      {{ form.as_p }}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
   <input type="submit" value="Make reservation">
+
 </div>
 
 {% endblock %}

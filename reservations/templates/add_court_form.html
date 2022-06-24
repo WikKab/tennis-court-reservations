@@ -4,10 +4,12 @@
 
 <div class="content">
 <h2>Add new Court: </h2></br>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
 
-      {{ form.as_p }}
-
-  <input type="submit" value="Cerate">
+  <input type="submit" value="Create New Court">
 </div>
 
 {% endblock %}
+

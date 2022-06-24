@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
+
 app_name = 'reservations_urls'
 
 urlpatterns = [
@@ -25,5 +26,7 @@ urlpatterns = [
     path('reservation-form/', views.CreateReservationFormView.as_view(), name='reservation-form'),
 
     path('add-court/', views.AddCourtFormView.as_view(), name='add-court'),
+
+    # path('date-form/', views.get_name, name='date-form')
 
 ]

@@ -1,4 +1,5 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, SelectDateWidget, Select
+from django import forms
 
 from reservations.models import Reservations, TennisCourt
 
@@ -6,13 +7,18 @@ from reservations.models import Reservations, TennisCourt
 class CreateReservationModelForm(ModelForm):
     class Meta:
         model = Reservations
-        # fields = '__all__'
-        exclude = ['reservation_cost', 'reservation_status']
-
-    # def form_valid(self, form):
-    #     result = super().form_valid(form)
-    #     form.save()
-    #     return result
+        fields = [
+            'object',
+            'reservation_date',
+            'reservation_start',
+            'reservation_end',
+        ]
+        widgets = {
+            'reservation_date': SelectDateWidget(
+                empty_label=("Choose Day", "Choose Month", "Choose Year")),
+            # 'reservation_start': Select,
+            # 'reservation_end': Select,
+        }
 
 
 class AddCourtModelForm(ModelForm):
@@ -20,10 +26,6 @@ class AddCourtModelForm(ModelForm):
         model = TennisCourt
         # fields = '__all__'
         exclude = ['reservation_status']
-
-
-
-
 
 
 if __name__ == '__main__':
