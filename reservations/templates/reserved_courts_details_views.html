@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
- <h2>Courts Details: </h2>
+ <h2>Reserved Courts: </h2></br>
 
  <table class="table table-bordered" style="width:100%">
     <thead>
       <tr>
-        <th>Object</th>
+        <th>City</th>
+        <th>Court</th>
         <th>Reservation Date</th>
         <th>Reservation Starts</th>
         <th>Reservation Ends</th>
@@ -15,7 +16,8 @@
     <tbody>
       {% for el in object_list %}
         <tr>
-          <td>{{ el.object }}</td>
+          <td>{{ el.object.city }}</td>
+          <td>{{ el.object.name }}</td>
           <td>{{ el.reservation_date }}</td>
           <td>{{ el.reservation_start }}</td>
           <td>{{ el.reservation_end }}</td>
