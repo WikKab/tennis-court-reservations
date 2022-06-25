@@ -23,8 +23,8 @@
         .bg-image {
 
           background-image: url({% static 'tennis_court.jpg' %});
-          filter: blur(8px);
-          -webkit-filter: blur(8px);
+          filter: blur(20px);
+          -webkit-filter: blur(50px);
           height: 100%;
           background-position: center;
           background-repeat: no-repeat;
@@ -101,7 +101,7 @@
 
         .title_box{
             background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0, 0.6);
+            background-color: rgba(0,0,0, 0.9);
             border-radius: 10px;
             border-width: 2px;
             border-color: black;
@@ -117,7 +117,7 @@
         .navbar{
 
             background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0, 0.6);
+            background-color: rgba(0,0,0, 0.9);
             opacity: 0.9;
             border-style: solid;
             border-color: black;
@@ -140,7 +140,7 @@
             width: 90%;
             margin: auto;
             background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0, 0.6);
+            background-color: rgba(0,0,0, 0.9);
             }
 
         .content{
@@ -277,63 +277,26 @@ border-collapse: collapse;
 
 <div class="overlay">
     <nav class="title_box">
-        <h1>Tennis Courts Reservation System</h1>
+        <h1>ADMINISTRATOR PANEL</h1>
+        <h2>Tennis Courts Reservation System</h2>
     </nav>
 
+        {% if perms.foo %}
     <nav class="navbar">
-        <div class=" navbar-header navbar-left">
-            <a class="navbar-brand" href="{% url 'reservations_urls:index-list-view' %}">
-                <span class="glyphicon glyphicon-home"></span> Home</a>
-        </div>
+        <div class="navbar-header dropdown">
 
-        <div class="navbar-header">
-            {% if user.is_authenticated %}
-            <a class="navbar-brand" href="{% url 'reservations_urls:courts-details' %}">Courts List</a>
-            <a class="navbar-brand"
-               href="{% url 'reservations_urls:reserved_courts_details_views' %}"> Current reservations</a>
-            <a class="navbar-brand" href="{% url 'reservations_urls:reservation-form' %}">Reservation System</a>
-
-            {% else %}
-            <a class="navbar-brand" href="{% url 'reservations_urls:courts' %}">Courts List</a>
-            <a class="navbar-brand"
-               href="{% url 'reservations_urls:reserved_courts_list_views' %}"> Current reservations</a>
-            <a class="navbar-brand" href="{% url 'reservations_urls:reservation-form' %}">Reservation System</a>
-            {% endif %}
-
-        </div>
-
-        <div class="navbar-header dropdown navbar-right">
-            {% if user.is_authenticated %}
-            <p1 class="navbar-brand">You are logged in as</p1>
-
-                <button class="dropbtn"><b>{{ user }}</b></button>
-                  <div class="dropdown-content">
-                        <a class="navbar-brand" href=" {% url 'accounts_urls:change-password' %}">
-                                <span class="glyphicon glyphicon-user"></span>Change Password</a>
-
-                        <a class="navbar-brand" href="{% url 'password_reset'%}">
-                                <span class="glyphicon glyphicon-user"></span>Password Reset</a>
-
-                        <a class="navbar-brand" href=" {% url 'logout' %} ">
+                    <a class="navbar-brand" href="{% url 'reservations_urls:add-court' %}">Add New Court</a>
+                    <a class="navbar-brand" href=#">Delete Court</a>
+                    <a class="navbar-brand" href=#">Change Court Params</a>
+                    <a class="navbar-brand" href=#">Change Reservation Params</a>
+                    <a class="navbar-brand" href=#">Delete Reservation</a>
+                    <a class="navbar-brand" href="#">??? something ???</a>
+                    <a class="navbar-brand" href=" {% url 'logout' %} ">
                                 <span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                      {% else %}
-
-                        <a class="navbar-brand" href="{% url 'accounts_urls:register' %}">
-                                <span class="glyphicon glyphicon-user"></span> Sign Up</a>
-
-                        <a class="navbar-brand" href=" {% url 'reservations_urls:login_main' %} ">
-                                <span class="glyphicon glyphicon-log-in"></span> Login</a>
-
-        </div>
-
-
-                      {% endif %}
-
-                      {% if perms.foo %}
-                      <a class="navbar-brand" href=" {% url 'reservations_urls:admin-panel' %} ">
-                                <span class="glyphicon glyphicon-log-out"></span>Admin Manage Panel</a>
-                      {% endif %}
+              </div>
     </nav>
+
+        {% endif %}
 
 <div class="content_box">
             {% block content %}{% endblock %}

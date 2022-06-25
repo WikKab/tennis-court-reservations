@@ -3,10 +3,13 @@ from django.db import models
 
 class TennisCourt(models.Model):
     CITY = [
+        ("Białystok", "Białystok"),
+        ("Gdańsk", "Gdańsk"),
         ("Kraków", "Kraków"),
+        ('Lublin', 'Lublin'),
+        ("Olsztyn", "Olsztyn"),
         ("Poznań", "Poznań"),
         ("Warszawa", "Warszawa"),
-        ("Olsztyn", "Olsztyn"),
         ("Wrocław", "Wrocaław"),
     ]
 
@@ -30,11 +33,18 @@ class Reservations(models.Model):
     reservation_start = models.TimeField()
     reservation_end = models.TimeField()
 
+    # class Meta:
+    #     ordering = ['object']
+
     # reservation_status = models.BooleanField(default=False)
     # reservation_cost = models.IntegerField()
 
     def __str__(self):
         return f'{self.object}'
+
+
+class AdminPanel(models.Model):
+    pass
 
 
 if __name__ == '__main__':

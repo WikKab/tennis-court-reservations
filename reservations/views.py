@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView
 from reservations.forms import CreateReservationModelForm, AddCourtModelForm
-from reservations.models import TennisCourt, Reservations
+from reservations.models import TennisCourt, Reservations, AdminPanel
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
@@ -15,6 +15,17 @@ class CourtsListView(ListView):
 class CourtsListDetailView(ListView):
     template_name = 'courts_details.html'
     model = TennisCourt
+
+    ordering = 'city'
+
+    # def get_ordering(self):
+    #     return self.request.GET.get(
+    #         ('o', 'city')
+    #     )
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     return queryset.ordered(
 
 
 class IndexListView(ListView):
@@ -30,6 +41,7 @@ class ReservedCourtsListView(LoginRequiredMixin, ListView):
 class ReservedCourtsDetailsView(LoginRequiredMixin, ListView):
     template_name = 'reserved_courts_details_views.html'
     model = Reservations
+    ordering = 'object'
 
 
 class ReservationSystemListView(LoginRequiredMixin, ListView):
@@ -45,6 +57,11 @@ class Login(ListView):
 class Logout(ListView):
     template_name = 'logout.html'
     model = TennisCourt
+
+
+class AdminPanel(ListView):
+    template_name = 'admin_panel.html'
+    model = AdminPanel
 
 
 class CreateReservationFormView(LoginRequiredMixin, FormView):
@@ -64,7 +81,7 @@ class AddCourtFormView(PermissionRequiredMixin, FormView):
 
     template_name = 'add_court_form.html'
     form_class = AddCourtModelForm
-    success_url = reverse_lazy('reservations_urls:courts')
+    success_url = reverse_lazy('reservations_urls:add-court')
 
     def form_valid(self, form):
         result = super().form_valid(form)

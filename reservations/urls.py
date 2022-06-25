@@ -31,6 +31,8 @@ urlpatterns = [
 
     path('logout/', views.Logout.as_view(), name='logout'),
 
+    path('admin-panel/', views.AdminPanel.as_view(), name='admin-panel'),
+
     path('reservation-form/', views.CreateReservationFormView.as_view(), name='reservation-form'),
 
     path('add-court/', views.AddCourtFormView.as_view(), name='add-court'),
