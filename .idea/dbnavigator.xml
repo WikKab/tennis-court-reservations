@@ -35,15 +35,14 @@
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
       <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/django_content_type" />
-      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_user" />
-      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_group" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/sqlite_sequence" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/reservations_tenniscourt" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/reservations_reservations" />
       <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_user_user_permissions" />
-      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_group_permissions" />
       <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/django_redirect" />
-      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_user_groups" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/django_site" />
       <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/django_admin_log" />
       <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/django_migrations" />
-      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_permission" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
