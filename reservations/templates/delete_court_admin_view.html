@@ -16,15 +16,15 @@
       </tr>
     </thead>
     <tbody>
-      {% for task in object_list %}
+      {% for el in object_list %}
         <tr>
-            <td>{{ task.id }}-<a href="{% url 'reservations_urls:delete' task.id %}">DELETE</a></td>
-<!--            <td>{{ el.city }}</td>-->
-<!--            <td>{{ el.name }}</td>-->
-<!--            <td>{{ el.open_hour }}</td>-->
-<!--            <td>{{ el.close_hour }}</td>-->
-<!--            <td>{{ el.hire_price }}</td>-->
-<!--            <td>{{ el.equipment_rent }}</td>-->
+            <td>{{ el.id }} <a href="{% url 'reservations_urls:delete' el.id %}">DELETE</a></td>
+            <td>{{ el.city }}</td>
+            <td>{{ el.name }}</td>
+            <td>{{ el.open_hour }}</td>
+            <td>{{ el.close_hour }}</td>
+            <td>{{ el.hire_price }}</td>
+            <td>{{ el.equipment_rent }}</td>
         </tr>
 
       {% endfor %}
