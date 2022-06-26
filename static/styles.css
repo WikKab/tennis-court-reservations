@@ -1,0 +1,284 @@
+body, html {
+          height: 100%;
+          margin: 0;
+          background-color: black;
+        }
+
+* {
+  box-sizing: border-box;
+}
+
+.bg-image {
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+
+  width: 100vw;
+  height: 100vh;
+
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  position: relative;
+  }
+
+
+p{
+    color:white;
+    font-size: 18px;
+
+}
+
+p1{
+    color:white;
+    font-size: 16px;
+}
+
+
+
+h1{
+    font-size: 45px;
+    color: white;
+    opacity: 1;
+
+}
+
+h2{
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+}
+
+h3{
+    font-size: 24px;
+    color: white;
+    font-style: italic;
+    font-weight: bold;
+    text-align: center;
+}
+
+h4{
+    font-size: 20px;
+    color: white;
+    font-style: italic;
+    font-weight: bold;
+    text-align: left;
+}
+
+li{
+    font-size: 18px;
+    color: white;
+}
+
+a:link {
+  color: white;
+  font-weight: bold;
+  opacity: 1;
+ }
+
+ a:visited {
+    color: white;
+ }
+ a:hover {
+  color: brown;
+  text-decoration: underline;
+  }
+
+a:active {
+  color: red;
+  text-decoration: underline;
+  }
+
+.title_box{
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.6);
+    border-radius: 10px;
+    border-width: 2px;
+    border-color: black;
+    border-style: solid;
+    opacity: 0.9;
+    margin: 5px 5% 5px 5%;
+    padding: 5px;
+    font-style: italic;
+    text-align: center;
+    text-shadow: 3px 3px 5px black
+    }
+
+.navbar{
+
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.6);
+    opacity: 0.9;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 10px;
+    margin: 10px 5% 10px 5%;
+    padding: 0.5%;
+    }
+
+
+.navbar-header{
+    opacity: 1;
+}
+
+.content_box{
+    margin: 5px 5% 5px 10%;
+    padding: 30px;
+    border:2px solid black;
+    border-radius: 10px;
+    width: 90%;
+    margin: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.6);
+    }
+
+.content{
+    margin: 10%;
+    padding: 10px 10px 10px 10px;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 90%;
+    margin: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.6);
+    opacity: 1;
+}
+
+footer{
+   position:absolute;
+   bottom:0;
+   width: 85%;
+   text-align: center;
+   color: brown;
+   height:60px;
+}
+.overlay{
+<!--            background-color: rgb(0,0,0);-->
+<!--            background-color: rgba(0,0,0, 0.6);-->
+<!--            color: white;-->
+
+    border: 3px solid #f1f1f1;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    -ms-transform: translate(-50%);
+    transform: translate(-50%);
+    width: 100%;
+
+    padding: 5%;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  background-color: transparent;
+  color: white;
+  padding: 10px;
+  font-size: 18px;
+  border: none;
+
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: transparent;
+<!--  min-width: 50px;-->
+<!--  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.9);-->
+<!--  z-index: 1;-->
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+<!--  color: red;-->
+<!--  font-size: 20px;-->
+<!--  text-align: right;-->
+<!--  padding: 12px 16px;-->
+<!--  text-decoration: none;-->
+<!--  display: block;-->
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+color: brown ;
+text-decoration: underline;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+background-color: rgb(0,0,0);
+background-color: rgba(0,0,0, 0.8);
+display: block;
+<!--  display: flex;-->
+align-items: right;
+justify-content: right;
+ }
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+color: brown ;
+text-decoration: underline;
+display: flex;
+align-items: right;
+justify-content: right;
+}
+
+# TABLE STYLES
+
+tr {
+  background-color:  #330000;
+  text-align: center;
+ }
+
+th{
+    background-color:  #330000;
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    font-style: italic;
+    font-weight: bold;
+}
+
+td{
+  background-color:  #991a1a;
+  text-align: center;
+      color: white;
+ }
+
+
+.table-bordered {
+border: 2px solid black;
+border-collapse: collapse;
+}
+
+select{
+background-color:grey;
+}
+
+input{
+background-color:grey;
+}
+
+password{
+background-color:grey;
+}
+
+button{
+background-color: #330000;
+  border: solid;
+  border-radius: 8px;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+
+}
