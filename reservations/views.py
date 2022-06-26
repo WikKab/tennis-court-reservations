@@ -23,7 +23,7 @@ class CourtsListDetailView(ListView):
     #     return self.request.GET.get(
     #         ('o', 'city')
     #     )
-
+    #
     # def get_queryset(self):
     #     queryset = super().get_queryset()
     #     return queryset.ordered(
