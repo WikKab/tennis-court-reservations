@@ -33,7 +33,18 @@
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/django_content_type" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_user" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_group" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_user_user_permissions" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_group_permissions" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/django_redirect" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_user_groups" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/django_admin_log" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/django_migrations" />
+      <object connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" object-ref="schemas/main/tables/auth_permission" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="368bc1b2-6e0c-4488-8a07-0d071399d59e" />
@@ -50,6 +61,7 @@
     <filter-actions connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" dataset="main.django_content_type" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" dataset="main.django_admin_log" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" dataset="main.django_session" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" dataset="main.django_site" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="368bc1b2-6e0c-4488-8a07-0d071399d59e" dataset="main.auth_user" active-filter-id="EMPTY_FILTER">
       <filter id="e1887aa2-5081-402d-81ae-d82b1732819b" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
         <condition column="id" operator="=" value="" active="true" />
@@ -117,7 +129,7 @@
           <deprecated-pwd value="" />
         </database>
         <properties>
-          <auto-commit value="true" />
+          <auto-commit value="false" />
         </properties>
         <ssh-settings>
           <active value="false" />
