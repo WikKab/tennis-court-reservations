@@ -23,13 +23,16 @@
         .bg-image {
 
           background-image: url({% static 'tennis_court.jpg' %});
-          filter: blur(20px);
+          filter: blur(50px);
           -webkit-filter: blur(50px);
           height: 100%;
           background-position: center;
           background-repeat: no-repeat;
           background-size: cover;
           position: relative;
+          opacity: 0.3;
+
+
           }
 
 
@@ -281,12 +284,24 @@ border-collapse: collapse;
         <h2>Tennis Courts Reservation System</h2>
     </nav>
 
+    <div class="navbar">
+        <p style="color: red">*** USER INTERFACE *** </p>
+        <a class="navbar-brand" href="{% url 'reservations_urls:index-list-view' %}">
+            <span class="glyphicon glyphicon-home"></span> Home</a>
+        <a class="navbar-brand" href="{% url 'reservations_urls:courts-details' %}">Courts List</a>
+        <a class="navbar-brand"
+           href="{% url 'reservations_urls:reserved_courts_details_views' %}"> Current reservations</a>
+        <a class="navbar-brand" href="{% url 'reservations_urls:reservation-form' %}">Reservation System</a>
+    </div>
+
+
         {% if perms.foo %}
     <nav class="navbar">
+        <p style="color: red">*** ADMINISTRATOR PANEL *** </p>
         <div class="navbar-header dropdown">
 
                     <a class="navbar-brand" href="{% url 'reservations_urls:add-court' %}">Add New Court</a>
-                    <a class="navbar-brand" href=#">Delete Court</a>
+                    <a class="navbar-brand" href="#">Delete Court</a>
                     <a class="navbar-brand" href=#">Change Court Params</a>
                     <a class="navbar-brand" href=#">Change Reservation Params</a>
                     <a class="navbar-brand" href=#">Delete Reservation</a>

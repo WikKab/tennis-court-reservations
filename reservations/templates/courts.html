@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 
-
 {% block content %}
-
 
 <div class="content">
  <h2>Available Courts List </h2>
-    {% for o in object_list %}
+        {% for o in object_list %}
 
-            <li>{{ o }}</li>
+            <li>{{ o }} </li>
 
     {% endfor %}
 </div>

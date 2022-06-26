@@ -1,4 +1,9 @@
-from django.forms import ModelForm, SelectDateWidget, Select
+from django.forms import (
+    ModelForm,
+    SelectDateWidget,
+    Select,
+    CheckboxSelectMultiple,
+)
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -74,6 +79,16 @@ class AddCourtModelForm(ModelForm):
         help_texts = {'open_hour': _('( hh.mm )'),
                       'close_hour': _('( hh.mm )'),
                       }
+
+
+class DeleteCourtForm(ModelForm):
+    class Meta:
+        model = Reservations
+        fields = ['object']
+        widgets = {
+            'object': CheckboxSelectMultiple
+
+        }
 
 
 if __name__ == '__main__':

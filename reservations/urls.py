@@ -37,6 +37,8 @@ urlpatterns = [
 
     path('add-court/', views.AddCourtFormView.as_view(), name='add-court'),
 
+    # path(r'^post/(?P<pk>\d+)/$', views.DeleteCourtView.as_view(), name='delete'),
+
     # path('date-form/', views.get_name, name='date-form')
 
 ]

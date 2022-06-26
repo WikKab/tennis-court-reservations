@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView
-from reservations.forms import CreateReservationModelForm, AddCourtModelForm
+from django.views.generic import ListView, FormView, DeleteView
+from reservations.forms import CreateReservationModelForm, AddCourtModelForm, DeleteCourtForm
 from reservations.models import TennisCourt, Reservations, AdminPanel
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
@@ -91,7 +92,19 @@ class AddCourtFormView(PermissionRequiredMixin, FormView):
     def get_test_func(self):
         return self.request.user.username.startwith('admin')
 
-#
+
+class CourtsListDetailAdminView(ListView):
+    template_name = 'delete_court_admin_view.html'
+    model = TennisCourt
+    context_object_name = 'task'
+
+
+# class DeleteCourtView(DeleteView):
+#     model = TennisCourt
+#     template_name = 'delete_court.html'
+#     context_object_name = 'task'
+#     success_url = reverse_lazy('reservations_urls:admin-panel')
+
 # def get_name(request):
 #     if request.method == 'POST':
 #         form = DateForm(request.POST)

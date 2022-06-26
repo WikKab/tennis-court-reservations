@@ -1,0 +1,33 @@
+ {% extends "admin_panel.html" %}
+
+{% block content %}
+ <h2>Courts rates and opening hours: </h2></br>
+
+ <table class="table table-bordered" style="width:100%">
+    <thead>
+      <tr>
+            <th>id</th>
+            <th>City</th>
+            <th>Court Name</th>
+            <th>Opening at</th>
+            <th>Closing at</th>
+            <th>Hire Rate</br> [ $/0.5h ]</th>
+            <th>Is equipment rent</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in object_list %}
+        <tr>
+            <td>{{ task.id }}-<a href="{% url 'reservations_urls:delete' task.id %}">DELETE</a></td>
+<!--            <td>{{ el.city }}</td>-->
+<!--            <td>{{ el.name }}</td>-->
+<!--            <td>{{ el.open_hour }}</td>-->
+<!--            <td>{{ el.close_hour }}</td>-->
+<!--            <td>{{ el.hire_price }}</td>-->
+<!--            <td>{{ el.equipment_rent }}</td>-->
+        </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

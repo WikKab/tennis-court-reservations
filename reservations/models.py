@@ -13,12 +13,12 @@ class TennisCourt(models.Model):
         ("Wrocław", "Wrocaław"),
     ]
 
+    city = models.CharField(choices=CITY, max_length=24)
     name = models.CharField(max_length=64)
+    adress = models.CharField(max_length=128)
     open_hour = models.TimeField()
     close_hour = models.TimeField()
     hire_price = models.IntegerField()
-    city = models.CharField(choices=CITY, max_length=24)
-    adress = models.CharField(max_length=128)
     equipment_rent = models.BooleanField()
 
     def __str__(self):
@@ -29,6 +29,7 @@ class Reservations(models.Model):
     object = models.ForeignKey(
         TennisCourt, on_delete=models.CASCADE, related_name="reservations", blank=False, null=False
     )
+
     reservation_date = models.DateField()
     reservation_start = models.TimeField()
     reservation_end = models.TimeField()

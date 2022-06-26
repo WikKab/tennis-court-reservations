@@ -1,0 +1,15 @@
+{% extends "admin_panel.html" %}
+
+{% block content %}
+
+<div class="content">
+
+    <form method="post">
+        {% csrf_token %}
+        <p>Confirm deleting Court {{ task.title }}</p>
+
+        <input type="submit" value="Delete Court"/>
+    </form>
+</div>
+
+{% endblock %}
