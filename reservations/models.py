@@ -10,7 +10,7 @@ class TennisCourt(models.Model):
         ("Olsztyn", "Olsztyn"),
         ("Poznań", "Poznań"),
         ("Warszawa", "Warszawa"),
-        ("Wrocław", "Wrocaław"),
+        ("Wrocław", "Wrocław"),
     ]
 
     city = models.CharField(choices=CITY, max_length=24)
