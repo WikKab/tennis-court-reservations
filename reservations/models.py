@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class TennisCourt(models.Model):
@@ -44,6 +45,9 @@ class Reservations(models.Model):
 
     def __str__(self):
         return f'{self.court_object}'
+
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
 
 
 class AdminPanel(models.Model):

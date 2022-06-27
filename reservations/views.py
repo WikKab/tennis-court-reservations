@@ -79,6 +79,15 @@ class CreateReservationFormView(LoginRequiredMixin, FormView):
         form.save()
         return result
 
+# class CreateExactCourtReservationFormView(FormView):
+#     template_name = 'reservation_form.html'
+#     form_class = CreateReservationModelForm
+#     success_url = reverse_lazy('reservations_urls:reserved_courts_list_views')
+#
+#     def form_valid(self, form):
+#         result = super().form_valid(form)
+#         form.save()
+#         return result
 
 class AddCourtFormView(PermissionRequiredMixin, FormView):
     permission_required = 'reservations_urls:add-court'
