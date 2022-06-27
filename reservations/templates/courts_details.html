@@ -23,7 +23,8 @@
             <td>{{ el.open_hour }}</td>
             <td>{{ el.close_hour }}</td>
             <td>{{ el.hire_price }}</td>
-            <td>{{ el.equipment_rent }}</td>
+            <td>{% if el.equipment_rent %} Available {% else %} Not Available {%endif %}</td>
+
         </tr>
 
       {% endfor %}

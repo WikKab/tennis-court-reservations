@@ -28,6 +28,7 @@ class CourtsListDetailView(ListView):
     #     queryset = super().get_queryset()
     #     return queryset.ordered(
 
+
 class CourtDetailView(DetailView):
     model = TennisCourt
     template_name = 'court_exact_detail.html'
@@ -118,4 +119,3 @@ class DeleteCourtView(DeleteView):
     template_name = 'delete_court.html'
     context_object_name = 'object'
     success_url = reverse_lazy('reservations_urls:courts-detail-admin')
-

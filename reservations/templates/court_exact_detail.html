@@ -8,7 +8,9 @@
     <h2>Hire price: {{ tenniscourt.hire_price }} PLN/0.5h</h2>
 
     {% if tenniscourt.equipment_rent %}
-        <h2>It is possible to borrow tennis racket & balls at our court at additional cost {{tenniscourt.equipment_cost}} PLN!  </h2>
+        <h2>It is possible to borrow tennis racket & balls
+            at our court at additional cost {{tenniscourt.equipment_cost}} PLN!</h2>
+
     {% endif %}
 
     <h2>{{ tenniscourt.short_description }}</h2>
