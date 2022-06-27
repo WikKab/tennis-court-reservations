@@ -106,26 +106,16 @@ class AddCourtFormView(PermissionRequiredMixin, FormView):
         return self.request.user.username.startwith('admin')
 
 
-class CourtsListDetailAdminView(ListView):  # task.list.view
-    template_name = 'delete_court_admin_view.html'  # list.html          delete_court_admin_view.html
+class CourtsListDetailAdminView(ListView):
+    template_name = 'delete_court_admin_view.html'
     model = TennisCourt
-    context_object_name = 'court_object'
+    context_object_name = 'object'
+    ordering = 'city'
 
 
-class DeleteCourtView(DeleteView):  # task.delete.view
+class DeleteCourtView(DeleteView):
     model = TennisCourt
-    template_name = 'delete_court.html'  # delete.html        delete_court.html
-    context_object_name = 'court_object'
+    template_name = 'delete_court.html'
+    context_object_name = 'object'
     success_url = reverse_lazy('reservations_urls:courts-detail-admin')
 
-# def get_name(request):
-#     if request.method == 'POST':
-#         form = DateForm(request.POST)
-#     else:
-#         form = DateForm()
-#
-#     return render(
-#         request,
-#         template_name='form.html',
-#         context={'form': DateForm}
-#

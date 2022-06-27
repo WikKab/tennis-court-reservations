@@ -2,14 +2,25 @@
 
 {% block content %}
 
-<div class="content">
+<div class="content" xmlns="http://www.w3.org/1999/html"
+     xmlns="http://www.w3.org/1999/html">
 
     <form method="post">
         {% csrf_token %}
-        <p>Confirm deleting Court</p>
+        <h4>Confirm deleting Court</h4> </br></br>
 
-<!--        <input type="submit" value="Delete Court"/>-->
-              <button type="submit" value="Submit">DELETE COURT</button>
+           <p> City: {{ object.city }} </br>
+            Court Name: {{ object.name }} </br>
+            Open from: {{ object.open_hour }} </br>
+            Open till: {{ object.close_hour }} </br>
+            Hire Rent price: {{ object.hire_price }} </br>
+           </p>
+
+            </br></br>
+
+            <button type="submit" value="Submit" style="color:red">DELETE COURT</button>
+            <a href="{% url 'reservations_urls:courts-detail-admin' %}" class="button" style="color:white">CANCEL</a>
+
     </form>
 </div>
 

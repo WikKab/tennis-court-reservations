@@ -126,24 +126,25 @@ a:active {
 .content_box{
     margin: 5px 5% 5px 10%;
     padding: 30px;
-    border:2px solid black;
+    border:2px solid red;
     border-radius: 10px;
     width: 90%;
     margin: auto;
     background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0, 0.9);
+    background-color: rgba(0,0,0, 0.8);
     }
 
 .content{
     margin: 10%;
     padding: 10px 10px 10px 10px;
-    border: 2px solid black;
+    border: 2px solid white;
     border-radius: 10px;
     width: 90%;
     margin: auto;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0, 0.6);
     opacity: 1;
+
 }
 
 footer{
@@ -233,6 +234,7 @@ justify-content: right;
 }
 
 # TABLE STYLES
+
 tr {
   background-color:  #330000;
   text-align: center;
@@ -245,12 +247,12 @@ th{
     color: white;
     font-style: italic;
     font-weight: bold;
+}
 
- }
-
-td {
-  background-color:  #330000;
+td{
+  background-color:  #991a1a;
   text-align: center;
+  color: white;
  }
 
 
@@ -269,6 +271,19 @@ background-color:grey;
 }
 
 button{
+background-color: #330000;
+  border: solid;
+  border-radius: 8px;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+
+}
+
+.button{
 background-color: #330000;
   border: solid;
   border-radius: 8px;

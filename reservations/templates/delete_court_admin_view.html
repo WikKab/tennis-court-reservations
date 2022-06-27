@@ -1,12 +1,12 @@
  {% extends "admin_panel.html" %}
 
 {% block content %}
- <h2>Courts rates and opening hours: </h2></br>
+ <h2>Available Courts List. Click DELETE to remove court. : </h2></br>
 
- <table class="table table-bordered" style="width:100%">
+ <table class="table-bordered" style="width:100%">
     <thead>
       <tr>
-            <th>id</th>
+            <th></th>
             <th>City</th>
             <th>Court Name</th>
             <th>Opening at</th>
@@ -18,7 +18,7 @@
     <tbody>
       {% for el in object_list %}
         <tr>
-            <td>{{ el.id }} <a href="{% url 'reservations_urls:delete' el.id %}">DELETE</a></td>
+            <td><a style="color:#85c34b" href="{% url 'reservations_urls:delete' el.id %}">DELETE</a></td>
             <td>{{ el.city }}</td>
             <td>{{ el.name }}</td>
             <td>{{ el.open_hour }}</td>
