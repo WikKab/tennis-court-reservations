@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 style="text-align:center">{{tenniscourt.name}}</h1></br>
+    <h2>City: {{ tenniscourt.city }}</h2>
+    <h2>Address: {{ tenniscourt.address }}</h2>
+    <h2>Open hours: {{ tenniscourt.open_hour }} - {{ tenniscourt.open_hour }} </h2>
+    <h2>Hire price: {{ tenniscourt.hire_price }} PLN/0.5h</h2>
+
+    {% if tenniscourt.equipment_rent %}
+        <h2>It is possible to borrow tennis racket & balls at our court at additional cost {{tenniscourt.equipment_cost}} PLN!  </h2>
+    {% endif %}
+
+    <h2>About our court: {{ tenniscourt.short_description }}</h2>
+
+{% endblock %}

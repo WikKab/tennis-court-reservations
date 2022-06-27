@@ -5,12 +5,15 @@ from . import views
 
 app_name = 'reservations_urls'
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('courts/', views.CourtsListView.as_view(), name='courts'),
 
     path('courts-details/', views.CourtsListDetailView.as_view(), name='courts-details'),
+
+    path('court-exact-detail/<pk>/', views.CourtDetailView.as_view(), name='court-exact-detail'),
 
     path(
         'reserved-courts-list-view/',
@@ -44,3 +47,4 @@ urlpatterns = [
     # path('date-form/', views.get_name, name='date-form')
 
 ]
+

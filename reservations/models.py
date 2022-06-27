@@ -15,14 +15,16 @@ class TennisCourt(models.Model):
 
     city = models.CharField(choices=CITY, max_length=24)
     name = models.CharField(max_length=64)
-    adress = models.CharField(max_length=128)
+    address = models.CharField(max_length=128)
     open_hour = models.TimeField()
     close_hour = models.TimeField()
     hire_price = models.IntegerField()
     equipment_rent = models.BooleanField()
+    equipment_cost = models.IntegerField(default=0)
+    short_description = models.CharField(max_length=1024, default='')
 
     def __str__(self):
-        return f'{self.city} / {self.name}'
+        return f'{self.name} - {self.address}'
 
 
 class Reservations(models.Model):

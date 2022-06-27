@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView, DeleteView
+from django.views.generic import ListView, FormView, DeleteView, DetailView
 from reservations.forms import CreateReservationModelForm, AddCourtModelForm, DeleteCourtForm
 from reservations.models import TennisCourt, Reservations, AdminPanel
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -27,6 +27,10 @@ class CourtsListDetailView(ListView):
     # def get_queryset(self):
     #     queryset = super().get_queryset()
     #     return queryset.ordered(
+
+class CourtDetailView(DetailView):
+    model = TennisCourt
+    template_name = 'court_exact_detail.html'
 
 
 class IndexListView(ListView):

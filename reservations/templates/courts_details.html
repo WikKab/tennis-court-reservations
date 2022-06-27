@@ -6,8 +6,8 @@
  <table class="table table-bordered" style="width:100%">
     <thead>
       <tr>
-            <th>City</th>
             <th>Court Name</th>
+            <th>City</th>
             <th>Opening at</th>
             <th>Closing at</th>
             <th>Hire Rate</br> [ PLN/0.5h ]</th>
@@ -17,8 +17,8 @@
     <tbody>
       {% for el in object_list %}
         <tr>
+            <td><a href="{% url 'reservations_urls:court-exact-detail' pk=el.pk %}"> {{ el.name }}</a></td>
             <td>{{ el.city }}</td>
-            <td>{{ el.name }}</td>
             <td>{{ el.open_hour }}</td>
             <td>{{ el.close_hour }}</td>
             <td>{{ el.hire_price }}</td>
