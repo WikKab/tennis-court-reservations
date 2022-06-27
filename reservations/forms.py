@@ -45,7 +45,7 @@ class CreateReservationModelForm(ModelForm):
     class Meta:
         model = Reservations
         fields = [
-            'object',
+            'court_object',
             'reservation_date',
             'reservation_start',
             'reservation_end',
@@ -84,9 +84,9 @@ class AddCourtModelForm(ModelForm):
 class DeleteCourtForm(ModelForm):
     class Meta:
         model = Reservations
-        fields = ['object']
+        fields = ['court_object']
         widgets = {
-            'object': CheckboxSelectMultiple
+            'court_object': CheckboxSelectMultiple
 
         }
 

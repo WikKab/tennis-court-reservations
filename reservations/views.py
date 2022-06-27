@@ -46,7 +46,7 @@ class ReservedCourtsListView(LoginRequiredMixin, ListView):
 class ReservedCourtsDetailsView(LoginRequiredMixin, ListView):
     template_name = 'reserved_courts_details_views.html'
     model = Reservations
-    ordering = 'object'
+    ordering = 'court_object'
 
 
 class ReservationSystemListView(LoginRequiredMixin, ListView):
@@ -100,13 +100,13 @@ class AddCourtFormView(PermissionRequiredMixin, FormView):
 class CourtsListDetailAdminView(ListView):  # task.list.view
     template_name = 'delete_court_admin_view.html'  # list.html          delete_court_admin_view.html
     model = TennisCourt
-    context_object_name = 'object'
+    context_object_name = 'court_object'
 
 
 class DeleteCourtView(DeleteView):  # task.delete.view
     model = TennisCourt
     template_name = 'delete_court.html'  # delete.html        delete_court.html
-    context_object_name = 'object'
+    context_object_name = 'court_object'
     success_url = reverse_lazy('reservations_urls:courts-detail-admin')
 
 # def get_name(request):

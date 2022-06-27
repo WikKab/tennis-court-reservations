@@ -28,7 +28,7 @@ class TennisCourt(models.Model):
 
 
 class Reservations(models.Model):
-    object = models.ForeignKey(
+    court_object = models.ForeignKey(
         TennisCourt, on_delete=models.CASCADE, related_name="reservations", blank=False, null=False
     )
 
@@ -43,7 +43,7 @@ class Reservations(models.Model):
     # reservation_cost = models.IntegerField()
 
     def __str__(self):
-        return f'{self.object}'
+        return f'{self.court_object}'
 
 
 class AdminPanel(models.Model):
