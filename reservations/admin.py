@@ -16,7 +16,7 @@ class ReservationsAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'reservation_date',
-        'court_object',
+        'court',
         'reservation_start',
         'reservation_end',
         # 'reservation_cost',
@@ -24,7 +24,7 @@ class ReservationsAdmin(admin.ModelAdmin):
     list_display_links = ('id',)
     list_per_page = 20
     list_filter = ('reservation_date',)
-    search_fields = ('court_object',)
+    search_fields = ('court',)
     # fieldsets = [
     #     ("General", {"fields": ["id"], "description": "Id info"}
     #      ),

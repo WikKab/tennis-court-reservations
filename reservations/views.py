@@ -47,7 +47,7 @@ class ReservedCourtsListView(LoginRequiredMixin, ListView):
 class ReservedCourtsDetailsView(LoginRequiredMixin, ListView):
     template_name = 'reserved_courts_details_views.html'
     model = Reservations
-    ordering = 'court_object'
+    ordering = 'court'
 
 
 class ReservationSystemListView(LoginRequiredMixin, ListView):

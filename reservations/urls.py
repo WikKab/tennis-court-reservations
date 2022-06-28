@@ -40,7 +40,7 @@ urlpatterns = [
 
     path('add-court/', views.AddCourtFormView.as_view(), name='add-court'),
 
-    path(r'(?P<pk>\d+)/$', views.DeleteCourtView.as_view(), name='delete'),  # r'^post/(?P<pk>\d+)/$/
+    path('delete-court/<pk>', views.DeleteCourtView.as_view(), name='delete'),
 
     path('courts-detail_admin_view/', views.CourtsListDetailAdminView.as_view(), name='courts-detail-admin'),
 
