@@ -66,6 +66,23 @@ class CreateReservationModelForm(ModelForm):
         # }
 
 
+class CreateExactReservationModelForm(forms.Form):
+
+        # reservation_date = forms.DateTimeField SelectDateWidget(
+        #         empty_label=("Choose Day", "Choose Month", "Choose Year"))
+        reservation_date = forms.DateTimeField(input_formats=['%d/%m/%Y'])
+        # reservation_date = forms.ChoiceField(choices=[(x, x) for x in range('2022-06-28', '2023-06-17')])
+        reservation_start = forms.ChoiceField(choices=[(x, x) for x in range(1, 32, 2)])
+
+        reservation_end = forms.ChoiceField(choices=RENT_TIME)
+        #
+        # help_texts = {'reservation_start': _('( hh.mm )'),
+        #               'reservation_end': _('( hh.mm )'),
+        #               }
+
+
+
+
 class AddCourtModelForm(ModelForm):
     class Meta:
         model = TennisCourt

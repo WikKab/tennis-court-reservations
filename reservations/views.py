@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, FormView, DeleteView, DetailView, UpdateView
 from reservations.forms import (
@@ -9,6 +9,12 @@ from reservations.forms import (
     CourtsParamsEditForm,
     ReservationsParamsEditForm,
 
+)
+from django.views.generic import ListView, FormView, DeleteView, DetailView
+from reservations.forms import (
+    CreateReservationModelForm,
+    AddCourtModelForm,
+    CreateExactReservationModelForm,
 )
 from reservations.models import TennisCourt, Reservations, AdminPanel
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -86,17 +92,21 @@ class CreateReservationFormView(LoginRequiredMixin, FormView):
         form.save()
         return result
 
-
 class CreateExactCourtReservationFormView(FormView):
-    template_name = 'reservation_form.html'
-    form_class = CreateReservationModelForm
+    template_name = 'exact_reservation_form.html'
+    form_class = CreateExactReservationModelForm
     success_url = reverse_lazy('reservations_urls:reserved_courts_list_views')
 
     def form_valid(self, form):
         result = super().form_valid(form)
-        form.save()
-        return result
+        court = get_object_or_404(TennisCourt, pk=pk)
+        reservation_date = form.cleaned_data["reservation_date"]
+        reservation_start = form.cleaned_data["reservation_start"]
+        reservation_end = form.cleaned_data["reservation_end"]
 
+        Reservations.objects.create(court=court, reservation_date=reservation_date,
+                                    reservation_start=reservation_start, reservation_end=reservation_end)
+        return result
 
 class AddCourtFormView(PermissionRequiredMixin, FormView):
     permission_required = 'reservations_urls:add-court'
