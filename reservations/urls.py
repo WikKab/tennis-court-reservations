@@ -2,9 +2,7 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
-
 app_name = 'reservations_urls'
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,7 +23,6 @@ urlpatterns = [
         views.ReservedCourtsDetailsView.as_view(),
         name='reserved_courts_details_views'),
 
-
     path('index/', views.IndexListView.as_view(), name='index-list-view'),
 
     path('reservations/', views.ReservationSystemListView.as_view(), name='reservations'),
@@ -40,11 +37,10 @@ urlpatterns = [
 
     path('add-court/', views.AddCourtFormView.as_view(), name='add-court'),
 
-    path(r'(?P<pk>\d+)/$', views.DeleteCourtView.as_view(), name='delete'),  # r'^post/(?P<pk>\d+)/$/
+    path(r'(?P<pk>\d+)/$', views.DeleteCourtView.as_view(), name='delete'),
 
     path('courts-detail_admin_view/', views.CourtsListDetailAdminView.as_view(), name='courts-detail-admin'),
 
     # path('date-form/', views.get_name, name='date-form')
 
 ]
-

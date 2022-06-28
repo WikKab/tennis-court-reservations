@@ -125,7 +125,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     os.path.join(BASE_DIR, 'static'),
-    "D:/SDA_PYTHON/tennis_courts_reservations_project/tennis_courts/reservations/static",
 ]
 
 # Default primary key field type
