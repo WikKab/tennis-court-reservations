@@ -65,7 +65,8 @@ background-image: linear-gradient(
         <div class="navbar-header dropdown navbar-right">
             <button class="dropbtn"><b>**USERS MANAGEMENT**</b></button>
                   <div class="dropdown-content">
-                        <a class="navbar-brand" href="#">Create User</a>
+                        <a class="navbar-brand"
+                           href="{% url 'accounts_urls:register' %}">Create User</a>
                         <a class="navbar-brand" href="#">Delete User</a>
                         <a class="navbar-brand" href="#">Modify User</a>
                   </div>
