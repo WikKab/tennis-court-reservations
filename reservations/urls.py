@@ -37,10 +37,21 @@ urlpatterns = [
 
     path('add-court/', views.AddCourtFormView.as_view(), name='add-court'),
 
-    path(r'(?P<pk>\d+)/$', views.DeleteCourtView.as_view(), name='delete'),
+    # path(r'(?P<pk>\d+)/$', views.DeleteCourtView.as_view(), name='delete'),
+    path('delete/<pk>', views.DeleteCourtView.as_view(), name='delete'),
 
     path('courts-detail_admin_view/', views.CourtsListDetailAdminView.as_view(), name='courts-detail-admin'),
 
-    # path('date-form/', views.get_name, name='date-form')
+    path('courts-params/', views.CourtsParamsEditView.as_view(), name='courts-params-edit-view'),
+
+    path('courts-edit/<pk>', views.CourtParamsEdit.as_view(), name='courts-params-edit'),
+
+    path('reservations-params/', views.ReservationsParamsEditView.as_view(), name='reservations-params-edit-view'),
+
+    path('reservations-edit/<pk>', views.ReservationsParamsEdit.as_view(), name='reservations-params-edit'),
+
+    path('reservation-delete/<pk>', views.DeleteReservation.as_view(), name='reservation-delete'),
+
+    path('reservations-detail_admin_view/', views.ReservationsListDetailAdminView.as_view(), name='reservations-details'),
 
 ]

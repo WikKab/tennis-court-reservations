@@ -52,11 +52,14 @@ background-image: linear-gradient(
         <p style="color: red">*** ADMINISTRATOR PANEL *** </p>
         <div class="navbar-header">
 
-                    <a class="navbar-brand" href="{% url 'reservations_urls:add-court' %}">Add New Court</a>
-                    <a class="navbar-brand" href="{% url 'reservations_urls:courts-detail-admin' %}">Delete Court</a>
-                    <a class="navbar-brand" href=#">Change Court Params</a>
-                    <a class="navbar-brand" href=#">Change Reservation Params</a>
-                    <a class="navbar-brand" href=#">Delete Reservation</a>
+            <a class="navbar-brand" href="{% url 'reservations_urls:add-court' %}">Add New Court</a>
+            <a class="navbar-brand" href="{% url 'reservations_urls:courts-detail-admin' %}">Delete Court</a>
+            <a class="navbar-brand"
+               href="{% url 'reservations_urls:courts-params-edit-view' %}">Change Court Params</a>
+            <a class="navbar-brand"
+               href="{% url 'reservations_urls:reservations-params-edit-view' %}">Change Reservations</a>
+            <a class="navbar-brand"
+               href="{% url 'reservations_urls:reservations-details' %}">Delete Reservations</a>
 
 
         <div class="navbar-header dropdown navbar-right">

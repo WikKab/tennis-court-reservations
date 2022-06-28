@@ -2,8 +2,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import Http404
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView, DeleteView, DetailView
-from reservations.forms import CreateReservationModelForm, AddCourtModelForm, DeleteCourtForm
+from django.views.generic import ListView, FormView, DeleteView, DetailView, UpdateView
+from reservations.forms import (
+    CreateReservationModelForm,
+    AddCourtModelForm,
+    CourtsParamsEditForm,
+    ReservationsParamsEditForm,
+
+)
 from reservations.models import TennisCourt, Reservations, AdminPanel
 from django.contrib.auth.mixins import PermissionRequiredMixin
 
@@ -121,3 +127,45 @@ class DeleteCourtView(DeleteView):
     template_name = 'delete_court.html'
     context_object_name = 'object'
     success_url = reverse_lazy('reservations_urls:courts-detail-admin')
+
+
+class CourtParamsEdit(FormView, UpdateView):
+    model = TennisCourt
+    # fields = '__all__'
+    template_name = 'courts_params_edit.html'
+    form_class = CourtsParamsEditForm
+    success_url = reverse_lazy('reservations_urls:courts-params-edit-view')
+
+
+class CourtsParamsEditView(ListView):
+    template_name = 'courts_params_edit_view.html'
+    model = TennisCourt
+    ordering = 'city'
+
+
+class ReservationsParamsEdit(FormView, UpdateView):
+    model = Reservations
+    # fields = '__all__'
+    template_name = 'reservations_params_edit.html'
+    form_class = ReservationsParamsEditForm
+    success_url = reverse_lazy('reservations_urls:reservations-params-edit-view')
+
+
+class ReservationsParamsEditView(ListView):
+    template_name = 'reservations_params_edit_view.html'
+    model = Reservations
+    ordering = 'reservation_date'
+
+
+class ReservationsListDetailAdminView(ListView):
+    template_name = 'reservations_delete_admin_view.html'
+    model = Reservations
+    context_object_name = 'object'
+    ordering = 'reservation_date'
+
+
+class DeleteReservation(DeleteView):
+    model = Reservations
+    template_name = 'reservation_delete.html'
+    context_object_name = 'object'
+    success_url = reverse_lazy('reservations_urls:reservations-details')

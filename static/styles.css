@@ -282,3 +282,16 @@ background-color: #330000;
   font-size: 20px;
 
 }
+
+.button{
+background-color: #330000;
+  border: solid;
+  border-radius: 8px;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+
+}

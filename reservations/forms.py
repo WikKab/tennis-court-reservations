@@ -91,5 +91,41 @@ class DeleteCourtForm(ModelForm):
         }
 
 
+class CourtsParamsEditForm(ModelForm):
+    class Meta:
+        model = TennisCourt
+        # fields = '__all__'
+        exclude = ['reservation_status']
+        widgets = {
+            'open_hour': forms.Select(choices=RENT_TIME),
+            'close_hour': Select(choices=RENT_TIME),
+        }
+
+        help_texts = {'open_hour': _('( hh.mm )'),
+                      'close_hour': _('( hh.mm )'),
+                      }
+
+
+class ReservationsParamsEditForm(ModelForm):
+    class Meta:
+        model = Reservations
+        fields = [
+            'court',
+            'reservation_date',
+            'reservation_start',
+            'reservation_end',
+        ]
+        widgets = {
+            'reservation_date': SelectDateWidget(
+                empty_label=("Choose Day", "Choose Month", "Choose Year")),
+            'reservation_start': forms.Select(choices=RENT_TIME),
+            'reservation_end': Select(choices=RENT_TIME),
+        }
+
+        help_texts = {'reservation_start': _('( hh.mm )'),
+                      'reservation_end': _('( hh.mm )'),
+                      }
+
+
 if __name__ == '__main__':
     pass
