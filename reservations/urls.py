@@ -44,6 +44,9 @@ urlpatterns = [
 
     path('courts-detail_admin_view/', views.CourtsListDetailAdminView.as_view(), name='courts-detail-admin'),
 
+    path('create-exact-reservation/<pk>', views.CreateExactCourtReservationFormView.as_view(), name='create-exact--reservation'),
+
+
     # path('date-form/', views.get_name, name='date-form')
 
 ]

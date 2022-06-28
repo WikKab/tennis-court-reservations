@@ -12,6 +12,7 @@
             <th>Closing at</th>
             <th>Hire Rate</br> [ PLN/0.5h ]</th>
             <th>Equipment rent</th>
+            <th></th>
       </tr>
     </thead>
     <tbody>
@@ -24,6 +25,9 @@
             <td>{{ el.close_hour }}</td>
             <td>{{ el.hire_price }}</td>
             <td>{% if el.equipment_rent %} Available {% else %} Not Available {%endif %}</td>
+            <td><a href="{% url 'reservations_urls:create-exact--reservation' pk=el.pk %}">
+                <span class="glyphicon glyphicon-triangle-right"></span>Reserve court
+                <span class="glyphicon glyphicon-triangle-left"></span></td>
 
         </tr>
 
