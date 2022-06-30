@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
+from django.views import View
 from django.views.generic import ListView, FormView, DeleteView, DetailView, UpdateView
 from reservations.forms import (
     CreateReservationModelForm,
@@ -92,21 +93,34 @@ class CreateReservationFormView(LoginRequiredMixin, FormView):
         form.save()
         return result
 
-class CreateExactCourtReservationFormView(FormView):
-    template_name = 'exact_reservation_form.html'
-    form_class = CreateExactReservationModelForm
-    success_url = reverse_lazy('reservations_urls:reserved_courts_list_views')
 
-    def form_valid(self, form):
-        result = super().form_valid(form)
-        court = get_object_or_404(TennisCourt, pk=pk)
-        reservation_date = form.cleaned_data["reservation_date"]
-        reservation_start = form.cleaned_data["reservation_start"]
-        reservation_end = form.cleaned_data["reservation_end"]
+class CreateExactCourtReservationFormView(View):
+    # template_name = 'exact_reservation_form.html'
+    # form_class = CreateExactReservationModelForm
+    # success_url = reverse_lazy('reservations_urls:reserved_courts_list_views')
 
-        Reservations.objects.create(court=court, reservation_date=reservation_date,
-                                    reservation_start=reservation_start, reservation_end=reservation_end)
-        return result
+    def get(self, request, pk):
+        return render(
+            request,
+            template_name='exact_reservation_form.html',
+            context={"form": CreateExactReservationModelForm()}
+        )
+
+    def post(self, request, pk):
+        form = CreateExactReservationModelForm(request.POST or None)
+        if form.is_valid():
+            court = get_object_or_404(TennisCourt, pk=pk)
+            reservation_date = form.cleaned_data["reservation_date"]
+            reservation_start = form.cleaned_data["reservation_start"]
+            reservation_end = form.cleaned_data["reservation_end"]
+            Reservations.objects.create(court=court, reservation_date=reservation_date,
+                                        reservation_start=reservation_start, reservation_end=reservation_end)
+            return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_list_views"))
+        return render(
+                    request,
+                    template_name="exact_reservation_form.html",
+                    context={"form": form}
+        )
 
 class AddCourtFormView(PermissionRequiredMixin, FormView):
     permission_required = 'reservations_urls:add-court'
