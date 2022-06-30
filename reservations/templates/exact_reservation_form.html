@@ -3,13 +3,25 @@
 {% block content %}
 
 <div class="content">
-<h2>Make a reservation: </h2></br>
 
-<form method="POST">
+
+
+<form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <h2>Make a reservation: </h2></br>
 
-<!--  <input type="submit" value="Make reservation">-->
+       <p> Cityyyy: {{ object.court.city }} </br>
+        Court Name: {{ exact_court.name }} </br>
+       </p>
+
+            </br></br>
+
+
+
+
+    {{ form.as_p }}
+</form>
+
           <button type="submit" value="Submit">BOOK IT</button>
 
 </div>

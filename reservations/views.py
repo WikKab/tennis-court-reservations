@@ -60,7 +60,7 @@ class ReservedCourtsListView(LoginRequiredMixin, ListView):
 class ReservedCourtsDetailsView(LoginRequiredMixin, ListView):
     template_name = 'reserved_courts_details_views.html'
     model = Reservations
-    ordering = 'court'
+    ordering = '-reservation_date'
 
 
 class ReservationSystemListView(LoginRequiredMixin, ListView):
@@ -86,7 +86,7 @@ class AdminPanel(ListView):
 class CreateReservationFormView(LoginRequiredMixin, FormView):
     template_name = 'reservation_form.html'
     form_class = CreateReservationModelForm
-    success_url = reverse_lazy('reservations_urls:reserved_courts_list_views')
+    success_url = reverse_lazy('reservations_urls:reserved_courts_details_views')
 
     def form_valid(self, form):
         result = super().form_valid(form)
@@ -113,18 +113,22 @@ class CreateExactCourtReservationFormView(View):
             reservation_date = form.cleaned_data["reservation_date"]
             reservation_start = form.cleaned_data["reservation_start"]
             reservation_end = form.cleaned_data["reservation_end"]
-            Reservations.objects.create(court=court, reservation_date=reservation_date,
-                                        reservation_start=reservation_start, reservation_end=reservation_end)
+            Reservations.objects.create(court=court,
+                                        reservation_date=reservation_date,
+                                        reservation_start=reservation_start,
+                                        reservation_end=reservation_end
+                                        )
             return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_list_views"))
         return render(
-                    request,
-                    template_name="exact_reservation_form.html",
-                    context={"form": form}
+            request,
+            template_name="exact_reservation_form.html",
+            context={"form": form}
         )
+
 
 class AddCourtFormView(PermissionRequiredMixin, FormView):
     permission_required = 'reservations_urls:add-court'
-    permission_denied_message = 'You do not have permissions to do it.'
+    # # permission_denied_message = 'You do not have permissions to do it.'
 
     template_name = 'add_court_form.html'
     form_class = AddCourtModelForm
@@ -142,14 +146,14 @@ class AddCourtFormView(PermissionRequiredMixin, FormView):
 class CourtsListDetailAdminView(ListView):
     template_name = 'delete_court_admin_view.html'
     model = TennisCourt
-    context_object_name = 'object'
+    context_object_name = 'object2'
     ordering = 'city'
 
 
 class DeleteCourtView(DeleteView):
     model = TennisCourt
     template_name = 'delete_court.html'
-    context_object_name = 'object'
+    context_object_name = 'object2'
     success_url = reverse_lazy('reservations_urls:courts-detail-admin')
 
 
@@ -184,12 +188,10 @@ class ReservationsParamsEditView(ListView):
 class ReservationsListDetailAdminView(ListView):
     template_name = 'reservations_delete_admin_view.html'
     model = Reservations
-    context_object_name = 'object'
     ordering = 'reservation_date'
 
 
 class DeleteReservation(DeleteView):
     model = Reservations
     template_name = 'reservation_delete.html'
-    context_object_name = 'object'
     success_url = reverse_lazy('reservations_urls:reservations-details')

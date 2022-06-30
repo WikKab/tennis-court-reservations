@@ -233,6 +233,10 @@ align-items: right;
 justify-content: right;
 }
 
+
+
+
+
 # TABLE STYLES
 
 tr {
@@ -255,6 +259,37 @@ td{
   color: white;
  }
 
+
+
+.table2 {
+    border-collapse: collapse;
+    border-spacing: 0;
+
+}
+
+.table2 th{
+    text-align: right;
+    padding: 10px;
+    font-family: arial;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    font-style: normal;
+    text-decoration: none;
+
+}
+
+.table2 td {
+    text-align: left;
+    padding: 15px;
+    font-family: arial;
+    font-size: 18px;
+    color: white !important ;
+    font-weight: normal;
+    font-style: normal;
+    text-decoration: none;
+
+}
 
 .table-bordered {
 border: 2px solid black;

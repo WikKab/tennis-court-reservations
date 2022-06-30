@@ -25,7 +25,7 @@ class TennisCourt(models.Model):
     short_description = models.CharField(max_length=1024, default='')
 
     def __str__(self):
-        return f'{self.name} - {self.address}'
+        return f'{self.city} - {self.name} - {self.address}'
 
 
 class Reservations(models.Model):
