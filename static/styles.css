@@ -295,3 +295,7 @@ background-color: #330000;
   font-size: 20px;
 
 }
+
+ValidationError{
+background-color: yellow;
+}

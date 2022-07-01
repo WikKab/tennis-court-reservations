@@ -33,7 +33,8 @@
             <a class="navbar-brand" href="{% url 'reservations_urls:courts-details' %}">Courts List</a>
             <a class="navbar-brand"
                href="{% url 'reservations_urls:reserved_courts_details_views' %}"> Current reservations</a>
-            <a class="navbar-brand" href="{% url 'reservations_urls:reservation-form' %}">Reservation System</a>
+            <a class="navbar-brand"
+               href="{% url 'reservations_urls:reservation-court-selection' %}">Reservation System</a>
 
             {% else %}
             <a class="navbar-brand" href="{% url 'reservations_urls:courts' %}">Courts List</a>

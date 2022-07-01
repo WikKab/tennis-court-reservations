@@ -35,6 +35,13 @@ urlpatterns = [
 
     path('reservation-form/', views.CreateReservationFormView.as_view(), name='reservation-form'),
 
+    path('reservation-court-selection/',
+         views.CreateReservationCourtSelect.as_view(), name='reservation-court-selection'),
+
+    path('reservation-with-selected-court/<pk>',
+         views.CreateReservationWithSelectedCourt.as_view(), name='reservation-with-selected-court'),
+
+
     path('add-court/', views.AddCourtFormView.as_view(), name='add-court'),
 
     path('delete-court/<pk>', views.DeleteCourtView.as_view(), name='delete'),

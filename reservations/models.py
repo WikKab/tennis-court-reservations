@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class TennisCourt(models.Model):
@@ -30,7 +31,10 @@ class TennisCourt(models.Model):
 
 class Reservations(models.Model):
     court = models.ForeignKey(
-        TennisCourt, on_delete=models.CASCADE, related_name="reservations", blank=False, null=False
+        TennisCourt,
+        on_delete=models.CASCADE,
+        related_name="reservations",
+        blank=False,
     )
 
     reservation_date = models.DateField()
@@ -45,6 +49,12 @@ class Reservations(models.Model):
 
     def __str__(self):
         return f'{self.court}'
+
+    def get_absolute_url(self):
+        return reverse(
+            'author-detail',
+            kwargs={'pk': self.pk}
+        )
 
 # class Profile(models.Model):
 #     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)

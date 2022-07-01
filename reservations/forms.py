@@ -1,4 +1,5 @@
 # import pandas as pd
+from django.core.exceptions import ValidationError
 from django.forms import (
     ModelForm,
     SelectDateWidget,
@@ -72,16 +73,64 @@ RENT_TIME_2 = [
 ]
 
 
-def rez_date_validator(value):
-    start = Reservations.reservation_start
-    end = Reservations.reservation_end
-
-
 class CreateReservationModelForm(ModelForm):
+    rez_start = Reservations.reservation_start
+    rez_end = Reservations.reservation_end
+
+    def clean(self):
+        cleaned_data = super().clean()
+        rez_start = cleaned_data.get('reservation_start')
+        rez_end = cleaned_data.get('reservation_end')
+
+        if rez_end < rez_start:
+            raise ValidationError(f'WARNING!!! Reservation end time you have chosen is lower than '
+                                  f'start of your reservation. Change reservation finish time.')
+        if rez_end == rez_start:
+            raise ValidationError(f'WARNING!!! Reservation start and end time are the same. '
+                                  f' Change reservation time.')
+        return cleaned_data
+
     class Meta:
         model = Reservations
         fields = [
             'court',
+            'reservation_date',
+            'reservation_start',
+            'reservation_end',
+        ]
+        widgets = {
+            'reservation_date': SelectDateWidget(
+                empty_label=("Choose Day", "Choose Month", "Choose Year")),
+            'reservation_start': forms.Select(choices=RENT_TIME),
+            'reservation_end': Select(choices=RENT_TIME),
+        }
+
+        help_texts = {'reservation_start': _('( hh.mm )'),
+                      'reservation_end': _('( hh.mm )'),
+                      }
+
+
+class CreateReservationWithSelectedCourtForm(ModelForm):
+    rez_start = Reservations.reservation_start
+    rez_end = Reservations.reservation_end
+
+    def clean(self):
+        cleaned_data = super().clean()
+        rez_start = cleaned_data.get('reservation_start')
+        rez_end = cleaned_data.get('reservation_end')
+
+        if rez_end < rez_start:
+            raise ValidationError(f'WARNING!!! '
+                                  f'Reservation end time you have chosen is lower than '
+                                  f'start of your reservation. Change reservation finish time.')
+        if rez_end == rez_start:
+            raise ValidationError(f'WARNING!!! Reservation start and end time are the same. '
+                                  f' Change reservation time.')
+        return cleaned_data
+
+    class Meta:
+        model = Reservations
+        fields = [
             'reservation_date',
             'reservation_start',
             'reservation_end',

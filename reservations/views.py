@@ -1,24 +1,18 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, FormView, DeleteView, DetailView, UpdateView
-from reservations.forms import (
-    CreateReservationModelForm,
-    AddCourtModelForm,
-    CourtsParamsEditForm,
-    ReservationsParamsEditForm,
-
-)
-from django.views.generic import ListView, FormView, DeleteView, DetailView
+from reservations.models import TennisCourt, Reservations, AdminPanel
 from reservations.forms import (
     CreateReservationModelForm,
     AddCourtModelForm,
     CreateExactReservationModelForm,
+    CourtsParamsEditForm,
+    ReservationsParamsEditForm,
+    CreateReservationWithSelectedCourtForm,
 )
-from reservations.models import TennisCourt, Reservations, AdminPanel
-from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 class CourtsListView(ListView):
@@ -86,6 +80,23 @@ class AdminPanel(ListView):
 class CreateReservationFormView(LoginRequiredMixin, FormView):
     template_name = 'reservation_form.html'
     form_class = CreateReservationModelForm
+    success_url = reverse_lazy('reservations_urls:reserved_courts_details_views')
+
+    def form_valid(self, form):
+        result = super().form_valid(form)
+        form.save()
+        return result
+
+
+class CreateReservationCourtSelect(LoginRequiredMixin, ListView):
+    model = TennisCourt
+    template_name = 'reservation_court_selection.html'
+    ordering = 'city'
+
+
+class CreateReservationWithSelectedCourt(LoginRequiredMixin, FormView):
+    template_name = 'reservation_with_selected_court.html'
+    form_class = CreateReservationWithSelectedCourtForm
     success_url = reverse_lazy('reservations_urls:reserved_courts_details_views')
 
     def form_valid(self, form):

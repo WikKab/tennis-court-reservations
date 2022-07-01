@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Please select a Court in desired City: </h2>
+    </br>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+
+     <table class="table table-bordered" style="width: 30% " >
+        <thead>
+            <tr>
+                <th>City</th>
+                <th>Court Name</th>
+                <th>Select Court</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for el in object_list %}
+            <tr>
+                <td>{{ el.city }}</td>
+                <td>{{ el.name }}</td>
+                <td>
+                    <a href="{% url 'reservations_urls:reservation-with-selected-court' pk=el.pk %}">
+                        <span class="glyphicon glyphicon-hand-right"></span>
+                        SELECT
+                        <span class="glyphicon glyphicon-hand-left"></span>
+                    </a>
+                </td>
+            </tr>
+         {% endfor %}
+        </tbody>
+     </table>
+</form>
+
+{% endblock %}
