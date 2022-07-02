@@ -1,5 +1,5 @@
 from django.contrib import admin
-from reservations.models import TennisCourt, Reservations
+from reservations.models import TennisCourt, Reservations, Profile
 
 
 class TennisCourtsAdmin(admin.ModelAdmin):
@@ -34,3 +34,5 @@ class ReservationsAdmin(admin.ModelAdmin):
 
 admin.site.register(Reservations, ReservationsAdmin)
 admin.site.register(TennisCourt, TennisCourtsAdmin)
+admin.site.register(Profile)
+

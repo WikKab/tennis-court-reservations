@@ -72,6 +72,20 @@ RENT_TIME_2 = [
     ('22:00', '22:00'),
 ]
 
+def hour_range(open_hour, close_hour):
+    open_hour = str(open_hour)
+    close_hour = str(close_hour)
+    renting_time = []
+    if open_hour[-5] == '3':
+        renting_time.append((open_hour, open_hour))
+    for hours in range(int(open_hour[:2]), int(close_hour[:2]) + 1):
+        if hours == int(close_hour[:2]) and close_hour[-5] == '0':
+            renting_time.append((str(hours) + ':00', str(hours) + ':00'))
+        else:
+            renting_time.append((str(hours) + ':00', str(hours) + ':00'))
+            renting_time.append((str(hours) + ':30', str(hours) + ':30'))
+    return renting_time
+
 
 class CreateReservationModelForm(ModelForm):
     rez_start = Reservations.reservation_start
@@ -148,26 +162,19 @@ class CreateReservationWithSelectedCourtForm(ModelForm):
 
 
 class CreateExactReservationModelForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        self.court = kwargs.pop('court')
+        super().__init__(*args, **kwargs)
+
+        self.fields['reservation_start'].choices = hour_range(self.court.open_hour, self.court.close_hour)
+        self.fields['reservation_end'].choices = hour_range(self.court.open_hour, self.court.close_hour)
+
     reservation_date = forms.DateField(widget=forms.SelectDateWidget(
         empty_label=("Choose Day", "Choose Month", "Choose Year")))
-    # datelist = pd.date_range(start=TennisCourt.open_hour, end=TennisCourt.close_hour,
-    #                          freq='0.5H').to_pydatetime().tolist()
-    # renting_time = []
-    # for hours in datelist:
-    #     hour = str(hours)[11:16]
-    #     renting_time.append((hour, hour))
-    # k =[
-    #  (str(TennisCourt.open_hour), TennisCourt.open_hour),
-    #   (TennisCourt.close_hour, TennisCourt.close_hour),
-    # ]
 
-    reservation_start = forms.ChoiceField(help_text='( hh.mm )', choices=RENT_TIME_2)
-    # reservation_start = forms.ChoiceField(choices=RENT_TIME)
-    reservation_end = forms.ChoiceField(help_text='( hh.mm )', choices=RENT_TIME_2)
-    #
-    # help_texts = {'reservation_start': _('( hh.mm )'),
-    #               'reservation_end': _('( hh.mm )'),
-    #               }
+    reservation_start = forms.ChoiceField(help_text='( hh.mm )', choices=())
+    reservation_end = forms.ChoiceField(help_text='( hh.mm )', choices=())
 
 
 class AddCourtModelForm(ModelForm):

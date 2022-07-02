@@ -111,17 +111,17 @@ class CreateExactCourtReservationFormView(View):
     # success_url = reverse_lazy('reservations_urls:reserved_courts_list_views')
 
     def get(self, request, pk):
+        court = get_object_or_404(TennisCourt, pk=pk)
         return render(
             request,
             template_name='exact_reservation_form.html',
-            context={"form": CreateExactReservationModelForm()}
+            context={'form': CreateExactReservationModelForm(court=court), 'my_court': court}
         )
 
     def post(self, request, pk):
-        form = CreateExactReservationModelForm(request.POST or None)
+        court = get_object_or_404(TennisCourt, pk=pk)
+        form = CreateExactReservationModelForm(request.POST, court=court)
         if form.is_valid():
-            client = get_object_or_404(Profile, id=Profile.username)
-            court = get_object_or_404(TennisCourt, pk=pk)
             reservation_date = form.cleaned_data["reservation_date"]
             reservation_start = form.cleaned_data["reservation_start"]
             reservation_end = form.cleaned_data["reservation_end"]
@@ -129,7 +129,7 @@ class CreateExactCourtReservationFormView(View):
                                         reservation_date=reservation_date,
                                         reservation_start=reservation_start,
                                         reservation_end=reservation_end,
-                                        client=client,
+                                        client=request.user.profile
                                         )
             return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_list_views"))
         return render(
