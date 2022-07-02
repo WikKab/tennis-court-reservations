@@ -59,8 +59,7 @@ class Reservations(models.Model):
         end_hour = int(str(self.reservation_end)[:1])
         end_minute = int(str(self.reservation_end)[:1])
 
-        self.reservation_cost = self.court.hire_price * \
-                                ((end_hour * 60 + end_minute - start_hour * 60 + start_minute) / 30)
+        self.reservation_cost = self.court.hire_price * ((end_hour * 60 + end_minute - start_hour * 60 + start_minute) / 30)
 
     def __str__(self):
         return f'{self.court}'
