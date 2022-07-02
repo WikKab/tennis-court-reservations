@@ -10,20 +10,17 @@
     {% csrf_token %}
     <h2>Make a reservation: </h2></br>
 
-       <p> Cityyyy: {{ object.court.city }} </br>
+       <p> City: {{ object.court.city }} </br>
         Court Name: {{ exact_court.name }} </br>
        </p>
 
             </br></br>
 
 
-
-
     {{ form.as_p }}
-</form>
 
           <button type="submit" value="Submit">BOOK IT</button>
-
+</form>
 </div>
 
 

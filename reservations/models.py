@@ -35,6 +35,7 @@ class Reservations(models.Model):
         on_delete=models.CASCADE,
         related_name="reservations",
         blank=False,
+        null=False
     )
 
     reservation_date = models.DateField()
@@ -50,11 +51,6 @@ class Reservations(models.Model):
     def __str__(self):
         return f'{self.court}'
 
-    def get_absolute_url(self):
-        return reverse(
-            'author-detail',
-            kwargs={'pk': self.pk}
-        )
 
 # class Profile(models.Model):
 #     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)

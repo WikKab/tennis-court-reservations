@@ -121,11 +121,11 @@ class CreateReservationWithSelectedCourtForm(ModelForm):
 
         if rez_end < rez_start:
             raise ValidationError(f'WARNING!!! '
-                                  f'Reservation end time you have chosen is lower than '
-                                  f'start of your reservation. Change reservation finish time.')
+                                  f'Reservation end time you have chosen is before your reservation '
+                                  f'starts. Change reservation start or end time.')
         if rez_end == rez_start:
             raise ValidationError(f'WARNING!!! Reservation start and end time are the same. '
-                                  f' Change reservation time.')
+                                  f' Change reservation start or end time.')
         return cleaned_data
 
     class Meta:
@@ -191,7 +191,6 @@ class DeleteCourtForm(ModelForm):
         fields = ['court']
         widgets = {
             'court': CheckboxSelectMultiple
-
         }
 
 
