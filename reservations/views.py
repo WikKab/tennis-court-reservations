@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, FormView, DeleteView, DetailView, UpdateView
-from reservations.models import TennisCourt, Reservations, AdminPanel
+from reservations.models import TennisCourt, Reservations, AdminPanel, Profile
 from reservations.forms import (
     CreateReservationModelForm,
     AddCourtModelForm,
@@ -120,6 +120,7 @@ class CreateExactCourtReservationFormView(View):
     def post(self, request, pk):
         form = CreateExactReservationModelForm(request.POST or None)
         if form.is_valid():
+            client = get_object_or_404(Profile, id=Profile.username)
             court = get_object_or_404(TennisCourt, pk=pk)
             reservation_date = form.cleaned_data["reservation_date"]
             reservation_start = form.cleaned_data["reservation_start"]
@@ -127,7 +128,8 @@ class CreateExactCourtReservationFormView(View):
             Reservations.objects.create(court=court,
                                         reservation_date=reservation_date,
                                         reservation_start=reservation_start,
-                                        reservation_end=reservation_end
+                                        reservation_end=reservation_end,
+                                        client=client,
                                         )
             return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_list_views"))
         return render(

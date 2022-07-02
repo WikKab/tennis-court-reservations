@@ -41,19 +41,23 @@ class Reservations(models.Model):
     reservation_date = models.DateField()
     reservation_start = models.TimeField()
     reservation_end = models.TimeField()
+    client = models.ForeignKey(
+        'Profile', on_delete=models.CASCADE, blank=False, null=False)
 
-    # class Meta:
-    #     ordering = ['object']
+    reservation_cost = models.IntegerField(default=0)
 
-    # reservation_status = models.BooleanField(default=False)
-    # reservation_cost = models.IntegerField()
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        super(Reservations, self).save(force_insert=False, force_update=False, using=None, update_fields=None)
+        self.reservation_cost = self.court.hire_price * (int(str(self.reservation_end)) - int(str(self.reservation_start)))
 
     def __str__(self):
         return f'{self.court}'
 
 
-# class Profile(models.Model):
-#     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+class Profile(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE, blank=False)
+    wallet = models.IntegerField(default=0)
+    unit_payment = models.IntegerField(default=0)
 
 
 class AdminPanel(models.Model):
