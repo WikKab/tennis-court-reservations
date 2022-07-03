@@ -107,10 +107,6 @@ class CreateReservationWithSelectedCourt(LoginRequiredMixin, FormView):
 
 
 class CreateExactCourtReservationFormView(View):
-    # template_name = 'exact_reservation_form.html'
-    # form_class = CreateExactReservationModelForm
-    # success_url = reverse_lazy('reservations_urls:reserved_courts_list_views')
-
     def get(self, request, pk):
         court = get_object_or_404(TennisCourt, pk=pk)
         return render(
@@ -139,6 +135,24 @@ class CreateExactCourtReservationFormView(View):
             context={"form": form}
         )
 
+# class ConfirmExactCourtReservation(View):
+#     def get(self, request, pk):
+#         court = get_object_or_404(TennisCourt, pk=pk)
+#         return render(
+#             request,
+#             template_name="polls/delete.html",
+#             context={'form': CreateExactReservationModelForm(court=court), 'my_court': court}
+#         )
+#
+#     def post(self, request, pk):
+#         court = get_object_or_404(TennisCourt, pk=pk)
+#         Reservations.objects.create(court=court,
+#                                     reservation_date=reservation_date,
+#                                     reservation_start=reservation_start,
+#                                     reservation_end=reservation_end,
+#                                     client=request.user
+#                                     )
+#         return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_details_views"))
 
 class AddCourtFormView(PermissionRequiredMixin, FormView):
     permission_required = 'reservations_urls:add-court'

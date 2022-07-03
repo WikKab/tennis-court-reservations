@@ -21,8 +21,8 @@
     <p> Hire Rate: {{ my_court.hire_price }} PLN/0.5h </p>
     <p> Please be aware court have to be reserved for at least one hour.</p></br>
 
-
-          <button type="submit" value="Submit">BOOK IT</button>
+    <a href="{% url 'reservations_urls:courts-details' %}" class="button" style="color:white">Back</a>
+          <button type="submit" value="Submit">Reserve</button>
 </form>
 </div>
 

@@ -18,7 +18,8 @@
 </br>
 </br>
 
-        <a href="{% url 'reservations_urls:courts-details' %}"
-                 class="button" style="color:white">Back</a>
+    <a href="{% url 'reservations_urls:courts-details' %}" class="button" style="color:white">Back</a>
+    <a href="{% url 'reservations_urls:create-exact-reservation' pk=object.pk %}" class="button" style="color:white">Make reservation</a>
+
 
 {% endblock %}

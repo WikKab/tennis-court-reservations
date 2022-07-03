@@ -25,7 +25,7 @@
                 <td>{{ el.city }}</td>
                 <td>{{ el.name }}</td>
                 <td>
-                    <a href="{% url 'reservations_urls:reservation-with-selected-court' pk=el.pk %}">
+                    <a href="{% url 'reservations_urls:create-exact-reservation' pk=el.pk %}">
                         <span class="glyphicon glyphicon-hand-right"></span>
                         SELECT
                         <span class="glyphicon glyphicon-hand-left"></span>
