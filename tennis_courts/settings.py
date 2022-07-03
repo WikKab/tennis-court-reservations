@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'reservations',
     'django_extensions',
     'accounts',
+    'clients',
 
     # 3rd party
 

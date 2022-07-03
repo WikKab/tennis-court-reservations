@@ -1,5 +1,6 @@
 from django.contrib import admin
-from reservations.models import TennisCourt, Reservations, Profile
+from reservations.models import TennisCourt, Reservations
+from clients.models import Profile
 
 
 class TennisCourtsAdmin(admin.ModelAdmin):
