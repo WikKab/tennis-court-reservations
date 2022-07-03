@@ -132,7 +132,7 @@ class CreateExactCourtReservationFormView(View):
                                         reservation_end=reservation_end,
                                         client=request.user
                                         )
-            return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_list_views"))
+            return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_details_views"))
         return render(
             request,
             template_name="exact_reservation_form.html",

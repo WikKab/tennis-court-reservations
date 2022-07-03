@@ -1,3 +1,5 @@
+from datetime import date, datetime
+
 import pandas as pd
 from django.core.exceptions import ValidationError
 from django.forms import (
@@ -148,7 +150,18 @@ class CreateExactReservationModelForm(forms.Form):
 
     reservation_start = forms.ChoiceField(help_text='( hh.mm )', choices=())
     reservation_end = forms.ChoiceField(help_text='( hh.mm )', choices=())
-
+    def clean(self):
+        result = super().clean()
+        if not self.errors:
+            if result["reservation_date"] < date.today():
+                raise ValidationError("You can't make reservation in the past!")
+            if int(result["reservation_start"][:1]) > int(result["reservation_end"][:1]):
+                self.add_error("reservation_start", "Start time should be lower than end.")
+                self.add_error("reservation_end", "End time should be higher than start.")
+                raise ValidationError("Reservation can't end before it even started!")
+            elif int(result["reservation_start"][:1]) == int(result["reservation_end"][:1]):
+                raise ValidationError("Reservation should be at least one hour long!")
+        return result
 
 class AddCourtModelForm(ModelForm):
     class Meta:

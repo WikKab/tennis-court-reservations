@@ -10,14 +10,17 @@
     {% csrf_token %}
     <h2>Make a reservation: </h2></br>
 
-       <p> City: {{ object.court.city }} </br>
-        Court Name: {{ exact_court.name }} </br>
-       </p>
+       <p> City: {{ my_court.city }} </p>
+       <p> Court Name: {{ my_court.name }} </p>
 
-            </br></br>
+
+
 
 
     {{ form.as_p }}
+    <p> Hire Rate: {{ my_court.hire_price }} PLN/0.5h </p>
+    <p> Please be aware court have to be reserved for at least one hour.</p></br>
+
 
           <button type="submit" value="Submit">BOOK IT</button>
 </form>
