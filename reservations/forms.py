@@ -1,4 +1,4 @@
-# import pandas as pd
+import pandas as pd
 from django.core.exceptions import ValidationError
 from django.forms import (
     ModelForm,
@@ -41,51 +41,24 @@ RENT_TIME = [
     ('21.30', '21.30'),
     ('22.00', '22.00'),
 ]
-RENT_TIME_2 = [
-    ('8:00', '8:00'),
-    ('8:30', '8:30'),
-    ('9:00', '9:00'),
-    ('9:30', '9:30'),
-    ('10:00', '10:00'),
-    ('10:30', '10:30'),
-    ('11:00', '11:00'),
-    ('11:30', '11:30'),
-    ('12:00', '12:00'),
-    ('12:30', '12:30'),
-    ('13:00', '13:00'),
-    ('13:30', '13:30'),
-    ('14:00', '14:00'),
-    ('14:30', '14:30'),
-    ('15:00', '15:00'),
-    ('15:30', '15:30'),
-    ('16:30', '16:00'),
-    ('17:00', '17:00'),
-    ('17:30', '17:30'),
-    ('18:00', '18:00'),
-    ('18:30', '18:30'),
-    ('19.00', '19:00'),
-    ('19:30', '19:30'),
-    ('20:00', '20:00'),
-    ('20:30', '20:30'),
-    ('21:00', '21:00'),
-    ('21:30', '21:30'),
-    ('22:00', '22:00'),
-]
 
 def hour_range(open_hour, close_hour):
-    open_hour = str(open_hour)
-    close_hour = str(close_hour)
+    datelist = pd.date_range(start=str(open_hour), end=str(close_hour),
+                             freq='0.5H').to_pydatetime().tolist()
     renting_time = []
-    if open_hour[-5] == '3':
-        renting_time.append((open_hour, open_hour))
-    for hours in range(int(open_hour[:2]), int(close_hour[:2]) + 1):
-        if hours == int(close_hour[:2]) and close_hour[-5] == '0':
-            renting_time.append((str(hours) + ':00', str(hours) + ':00'))
-        else:
-            renting_time.append((str(hours) + ':00', str(hours) + ':00'))
-            renting_time.append((str(hours) + ':30', str(hours) + ':30'))
+    for hours in datelist:
+        hour = str(hours)[11:16]
+        renting_time.append((hour, hour))
+    # renting_time = []
+    # if open_hour[-5] == '3':
+    #     renting_time.append((open_hour, open_hour))
+    # for hours in range(int(open_hour[:2]), int(close_hour[:2]) + 1):
+    #     if hours == int(close_hour[:2]) and close_hour[-5] == '0':
+    #         renting_time.append((str(hours) + ':00', str(hours) + ':00'))
+    #     else:
+    #         renting_time.append((str(hours) + ':00', str(hours) + ':00'))
+    #         renting_time.append((str(hours) + ':30', str(hours) + ':30'))
     return renting_time
-
 
 class CreateReservationModelForm(ModelForm):
     rez_start = Reservations.reservation_start
