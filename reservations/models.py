@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from datetime import datetime
+from clients.models import Profile
 
 
 class TennisCourt(models.Model):
@@ -45,7 +46,7 @@ class Reservations(models.Model):
     reservation_start = models.TimeField()
     reservation_end = models.TimeField()
     client = models.ForeignKey(
-        'Profile', on_delete=models.CASCADE, blank=False, null=False)
+        User, on_delete=models.CASCADE, blank=False, null=False)
 
     reservation_cost = models.IntegerField(default=0)
 # z timefiled na datetime
@@ -65,10 +66,10 @@ class Reservations(models.Model):
         return f'{self.court}'
 
 #osobna apka
-class Profile(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, blank=False)
-    wallet = models.IntegerField(default=0)
-    unit_payment = models.IntegerField(default=0)
+# class Profile(models.Model):
+#     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE, blank=False)
+#     wallet = models.IntegerField(default=0)
+#     unit_payment = models.IntegerField(default=0)
 
 
 class AdminPanel(models.Model):
