@@ -156,26 +156,26 @@ class CreateExactReservationModelForm(forms.Form):
     reservation_start = forms.ChoiceField(help_text='( hh.mm )', choices=())
     reservation_end = forms.ChoiceField(help_text='( hh.mm )', choices=())
 
-    # def clean(self):
-    #     result = super().clean()
-    #     if not self.errors:
-    #         if result["reservation_date"] < date.today() or \
-    #             ((result["reservation_date"] == date.today() and
-    #                 int(result["reservation_start"][:2]) < int(str(datetime.now())[11:13]))):
-    #             raise ValidationError("You can't make reservation in the past!")
-    #         if int(result["reservation_start"][:2]) > int(result["reservation_end"][:2]):
-    #             self.add_error("reservation_start", "Start time should be earlier than end.")
-    #             self.add_error("reservation_end", "End time should be later than start.")
-    #             raise ValidationError("Reservation can't end before it even started!")
-    #         if int(result["reservation_start"][:2]) == int(result["reservation_end"][:2]) and \
-    #            int(result["reservation_start"][4:6]) == int(result["reservation_end"][4:6]):
-    #             raise ValidationError("Reservation should be at least half hour long!")
-    #         if Reservations.objects.filter(reservation_date=result["reservation_date"],
-    #                                        reservation_start__lt=result["reservation_end"],
-    #                                        reservation_end__gt=result["reservation_start"],
-    #                                        ).exists():
-    #             raise ValidationError("Already exists reservation at that time! Choose another time.")
-    #     return result
+    def clean(self):
+        result = super().clean()
+        if not self.errors:
+            if result["reservation_date"] < date.today() or \
+                ((result["reservation_date"] == date.today() and
+                    int(result["reservation_start"][:2]) < int(str(datetime.now())[11:13]))):
+                raise ValidationError("You can't make reservation in the past!")
+            if int(result["reservation_start"][:2]) > int(result["reservation_end"][:2]):
+                self.add_error("reservation_start", "Start time should be earlier than end.")
+                self.add_error("reservation_end", "End time should be later than start.")
+                raise ValidationError("Reservation can't end before it even started!")
+            if int(result["reservation_start"][:2]) == int(result["reservation_end"][:2]) and \
+               int(result["reservation_start"][4:6]) == int(result["reservation_end"][4:6]):
+                raise ValidationError("Reservation should be at least half hour long!")
+            if Reservations.objects.filter(reservation_date=result["reservation_date"],
+                                           reservation_start__lt=result["reservation_end"],
+                                           reservation_end__gt=result["reservation_start"],
+                                           ).exists():
+                raise ValidationError("Already exists reservation at that time! Choose another time.")
+        return result
 
 # class ConfirmReservationForm(forms.Form):
 #     reservation = forms.ModelChoiceField(queryset=None)

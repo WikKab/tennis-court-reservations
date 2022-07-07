@@ -17,11 +17,7 @@
 
 
 
-    <p> Reservation Date: {{ form.reservation_date }} </p>
-    <p> Reservation Start: {{ form.reservation_start }} </p>
-    <p> Reservation End: {{ form.reservation_end }} </p>
-
-    <p> Do you want to rent equipment at court? {{ form.rent_of_equipment }} </p>
+    {{ form.as_p }}
 
 
     <p> Hire Rate: {{ my_court.hire_price }} PLN/0.5h </p>

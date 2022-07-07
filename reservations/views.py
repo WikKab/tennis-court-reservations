@@ -159,12 +159,12 @@ class CreateExactCourtReservationFormView(View):
                                                 - start_minute) / 30) + court.equipment_cost
 
 
-# class ConfirmExactCourtReservation(View):
-#     def post(self, request, r):
-#
-#         r.save()
-#
-#         return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_details_views"))
+class ConfirmExactCourtReservation(View):
+    def post(self, r):
+
+        r.save()
+
+        return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_details_views"))
 
 
 class AddCourtFormView(PermissionRequiredMixin, FormView):
