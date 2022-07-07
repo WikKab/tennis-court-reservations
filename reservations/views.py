@@ -126,14 +126,14 @@ class CreateExactCourtReservationFormView(View):
             reservation_start = form.cleaned_data["reservation_start"]
             reservation_end = form.cleaned_data["reservation_end"]
             rent_of_equipment = form.cleaned_data["rent_of_equipment"]
-            r = Reservations(court=court,
-                             reservation_cost=self._calculate_cost(reservation_start, reservation_end, court,
-                                                                   rent_of_equipment),
-                             reservation_date=reservation_date,
-                             reservation_start=reservation_start,
-                             reservation_end=reservation_end,
-                             client=request.user,
-                             )
+            Reservations.objects.create(court=court,
+                                        reservation_cost=self._calculate_cost(reservation_start, reservation_end, court,
+                                                                              rent_of_equipment),
+                                        reservation_date=reservation_date,
+                                        reservation_start=reservation_start,
+                                        reservation_end=reservation_end,
+                                        client=request.user,
+                                        )
 
             # form = ConfirmReservationForm(reservation=r)
             return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_details_views"))

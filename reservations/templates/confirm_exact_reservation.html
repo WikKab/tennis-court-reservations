@@ -9,7 +9,7 @@
 <form method="post">
     {% csrf_token %}
     <h2>Please confirm your reservation: </h2></br>
-         <{ form.hidden }}>
+<!--         <{ form.hidden }}>-->
        <p> City: {{ form.fields.reservation.court.city }} </p>
        <p> Court Name: {{ form.fields.reservation.court.name }} </p>
        <p> Reservation date : {{ form.fields.reservation.reservation_date }}   </p>
