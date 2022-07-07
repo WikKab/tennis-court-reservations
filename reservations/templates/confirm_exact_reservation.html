@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="content">
+
+
+
+<form method="post">
+    {% csrf_token %}
+    <h2>Please confirm your reservation: </h2></br>
+         <{ form.hidden }}>
+       <p> City: {{ form.fields.reservation.court.city }} </p>
+       <p> Court Name: {{ form.fields.reservation.court.name }} </p>
+       <p> Reservation date : {{ form.fields.reservation.reservation_date }}   </p>
+       <p> Reservation time: {{ form.fields.reservation.reservation_start }}
+           - {{ form.fields.reservation.reservation_end }} </p>
+    <p> Reservation cost: {{ form.fields.reservation.reservation_cost }}  </p></br>
+    <p> Reservation cost will be added to your account's wallet.  </p>
+    <a href="{% url 'reservations_urls:courts-details' %}" class="button" style="color:white">Back</a>
+          <button type="submit" value="Submit">Reserve</button>
+</form>
+</div>
+
+
+
+{% endblock %}
