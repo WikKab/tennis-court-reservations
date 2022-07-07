@@ -55,6 +55,9 @@ urlpatterns = [
     path('create-exact-reservation/<pk>',
          views.CreateExactCourtReservationFormView.as_view(), name='create-exact-reservation'),
 
+    # path('confirm-exact-reservation/<pk>',
+    #      views.ConfirmExactCourtReservation.as_view(), name='confirm-exact-reservation'),
+
 
     path('reservations-params/', views.ReservationsParamsEditView.as_view(), name='reservations-params-edit-view'),
 
