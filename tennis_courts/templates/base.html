@@ -35,6 +35,9 @@
                href="{% url 'reservations_urls:reserved_courts_details_views' %}"> Current reservations</a>
             <a class="navbar-brand"
                href="{% url 'reservations_urls:reservation-court-selection' %}">Reservation System</a>
+            <a class="navbar-brand"
+               href="{% url 'clients_urls:profile_panel' %}">Profile</a>
+
 
             {% else %}
             <a class="navbar-brand" href="{% url 'reservations_urls:courts' %}">Courts List</a>
