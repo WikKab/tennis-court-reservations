@@ -1,6 +1,6 @@
 from datetime import date, datetime
 
-import now as now
+
 import pandas as pd
 from django.core.exceptions import ValidationError
 from django.forms import (
