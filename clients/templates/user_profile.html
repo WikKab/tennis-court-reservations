@@ -4,7 +4,13 @@
 
 
         <h2> Your Profile: </h2>
+        </br>
 
+        <form method="post">
+            {% csrf_token %}
+
+              {{ user_page }}
+        </form>
 
 {% endblock %}
 
