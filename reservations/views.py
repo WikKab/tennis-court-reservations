@@ -13,6 +13,7 @@ from reservations.forms import (
     CourtsParamsEditForm,
     ReservationsParamsEditForm,
     CreateReservationWithSelectedCourtForm,
+    ConfirmReservationForm,
 )
 
 
@@ -106,7 +107,7 @@ class CreateReservationWithSelectedCourt(LoginRequiredMixin, FormView):
         return result
 
 
-class CreateExactCourtReservationFormView(View):
+class CreateExactCourtReservation(View):
     def get(self, request, pk):
         court = get_object_or_404(TennisCourt, pk=pk)
         return render(
@@ -116,37 +117,37 @@ class CreateExactCourtReservationFormView(View):
         )
 
     def post(self, request, pk):
-        # print(request.POST)
+        if 'reservation_cost' not in request.POST:
+            court = get_object_or_404(TennisCourt, pk=pk)
+            form = CreateExactReservationModelForm(request.POST, court=court)
 
-        court = get_object_or_404(TennisCourt, pk=pk)
-        form = CreateExactReservationModelForm(request.POST, court=court)
+            if form.is_valid():
+                reservation_date = form.cleaned_data["reservation_date"]
+                reservation_start = form.cleaned_data["reservation_start"]
+                reservation_end = form.cleaned_data["reservation_end"]
+                rent_of_equipment = form.cleaned_data["rent_of_equipment"]
+
+                creat_form = ConfirmReservationForm(initial={'court': court,
+                                                             'reservation_date': reservation_date,
+                                                             'reservation_start': reservation_start,
+                                                             'reservation_end': reservation_end,
+                                                             'client': request.user,
+                                                             'reservation_cost': self._calculate_cost(reservation_start,
+                                                                                                      reservation_end,
+                                                                                                      court,
+                                                                                                      rent_of_equipment
+                                                                                                      )})
+                return render(
+                    request,
+                    template_name="confirm_exact_reservation.html",
+                    context={"form": creat_form, 'court': court}
+                )
+        form = ConfirmReservationForm(request.POST)
 
         if form.is_valid():
-            reservation_date = form.cleaned_data["reservation_date"]
-            reservation_start = form.cleaned_data["reservation_start"]
-            reservation_end = form.cleaned_data["reservation_end"]
-            rent_of_equipment = form.cleaned_data["rent_of_equipment"]
-            Reservations.objects.create(court=court,
-                                        reservation_cost=self._calculate_cost(reservation_start, reservation_end, court,
-                                                                              rent_of_equipment),
-                                        reservation_date=reservation_date,
-                                        reservation_start=reservation_start,
-                                        reservation_end=reservation_end,
-                                        client=request.user,
-                                        )
+            form.save()
+        return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_details_views"))
 
-            # form = ConfirmReservationForm(reservation=r)
-            return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_details_views"))
-            # return render(
-            #     request,
-            #     template_name="confirm_exact_reservation.html",
-            #     context={"form": form}
-            # )
-        return render(
-            request,
-            template_name="exact_reservation_form.html",
-            context={"form": form}
-        )
     @staticmethod
     def _calculate_cost(reservation_start, reservation_end, court, rent_of_equipment):
         start_hour = int(str(reservation_start)[:2])
@@ -155,16 +156,8 @@ class CreateExactCourtReservationFormView(View):
         end_minute = int(str(reservation_end)[3:5])
         if not rent_of_equipment:
             court.equipment_cost = 0
-        return court.hire_price * ((end_hour * 60 + end_minute - start_hour * 60
-                                                - start_minute) / 30) + court.equipment_cost
-
-
-class ConfirmExactCourtReservation(View):
-    def post(self, r):
-
-        r.save()
-
-        return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_details_views"))
+        return court.hire_price * ((end_hour * 60 + end_minute - start_hour *
+                                    60 - start_minute) / 30) + court.equipment_cost
 
 
 class AddCourtFormView(PermissionRequiredMixin, FormView):

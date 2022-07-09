@@ -1,13 +1,13 @@
 from django.test import RequestFactory, TestCase
 
 from reservations.models import TennisCourt
-from reservations.views import CreateExactCourtReservationFormView
+from reservations.views import CreateExactCourtReservation
 
 class TestViews(TestCase):
 
     def test_cost_without_rent(self):
         request = RequestFactory().get('/')
-        view = CreateExactCourtReservationFormView()
+        view = CreateExactCourtReservation()
         view.setup(request)
         self.court = TennisCourt(hire_price=100, equipment_rent=False)
         reservation_start = '16:00'
@@ -21,7 +21,7 @@ class TestViews(TestCase):
 
     def test_cost_with_rent(self):
         request = RequestFactory().get('/')
-        view = CreateExactCourtReservationFormView()
+        view = CreateExactCourtReservation()
         view.setup(request)
         self.court = TennisCourt(hire_price=100, equipment_cost=20, equipment_rent=True)
         reservation_start = '16:00'
