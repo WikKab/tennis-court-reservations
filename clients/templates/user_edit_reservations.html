@@ -1,29 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
- <h2>Edit Reservations: </h2></br>
 
- <table class="table table-bordered" style="width:100%">
-    <thead>
-      <tr>
-        <th>City</th>
-        <th>Court</th>
-        <th>Reservation Date</th>
-        <th>Reservation Starts</th>
-        <th>Reservation Ends</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for el in object_list %}
-        <tr>
-          <td>{{ el.court.city }}</td>
-          <td>{{ el.court.name }}</td>
-          <td>{{ el.reservation_date }}</td>
-          <td>{{ el.reservation_start }}</td>
-          <td>{{ el.reservation_end }}</td>
-        </tr>
+<div class="content" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
-      {% endfor %}
-    </tbody>
-  </table>
+    <form method="POST">
+              <h4>You can change all fields, or some of them only. </h4> </br></br>
+
+        {% csrf_token %}
+        {{ form.as_p }}
+
+              <button type="submit" value="Submit">APPLY CHANGES</button>
+              <a href="{% url 'reservations_urls:reservations-params-edit-view' %}"
+                 class="button" style="color:white">CANCEL</a>
+    </form>
+
+
+</div>
+
 {% endblock %}

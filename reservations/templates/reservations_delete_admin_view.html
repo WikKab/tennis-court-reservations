@@ -19,7 +19,7 @@
       {% for res in object_list %}
         <tr>
             <td><a style="color:#85c34b" href="{% url 'reservations_urls:reservation-delete' res.id %}">DELETE</a></td>
-            <td>{{ user }}</td>
+            <td>{{ res.client }}</td>
             <td>{{ res.court.city }}</td>
             <td>{{ res.court.name }}</td>
             <td>{{ res.reservation_date }}</td>

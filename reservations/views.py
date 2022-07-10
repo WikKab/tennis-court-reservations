@@ -149,7 +149,9 @@ class CreateExactCourtReservation(View):
                         )
         form = ConfirmReservationForm(request.POST)
         if form.is_valid():
-            form.save()
+            r = form.save()
+            self.request.user.profile.wallet += r.reservation_cost
+            self.request.user.profile.save()
         return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_details_views"))
 
     @staticmethod
@@ -209,12 +211,22 @@ class CourtsParamsEditView(ListView):
     ordering = 'city'
 
 
-class ReservationsParamsEdit(FormView, UpdateView):
+class ReservationsParamsEdit(UpdateView):
     model = Reservations
     # fields = '__all__'
     template_name = 'reservations_params_edit.html'
     form_class = ReservationsParamsEditForm
     success_url = reverse_lazy('reservations_urls:reservations-params-edit-view')
+
+    def form_valid(self, form):
+        print('lll', self.object.reservation_cost)
+        success_url = self.get_success_url()
+        self.request.user.profile.wallet-=self.object.reservation_cost
+        self.object = form.save()
+        print(self.object.reservation_cost)
+        self.request.user.profile.wallet += self.object.reservation_cost
+        self.request.user.profile.save()
+        return HttpResponseRedirect(success_url)
 
 
 class ReservationsParamsEditView(ListView):
@@ -233,3 +245,10 @@ class DeleteReservation(DeleteView):
     model = Reservations
     template_name = 'reservation_delete.html'
     success_url = reverse_lazy('reservations_urls:reservations-details')
+
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        self.request.user.profile.wallet-=self.object.reservation_cost
+        self.object.delete()
+        self.request.user.profile.save()
+        return HttpResponseRedirect(success_url)
