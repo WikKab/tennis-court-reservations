@@ -5,29 +5,24 @@
 <div class="content">
 
 
+    <form method="post">
+        {% csrf_token %}
+        <h2>Make a reservation: </h2></br>
 
-<form method="post">
-    {% csrf_token %}
-    <h2>Make a reservation: </h2></br>
-
-       <p> City: {{ my_court.city }} </p>
-       <p> Court Name: {{ my_court.name }} </p>
-
+        <p> City: {{ my_court.city }} </p>
+        <p> Court Name: {{ my_court.name }} </p>
 
 
+        {{ form.as_p }}
 
 
-    {{ form.as_p }}
+        <p> Hire Rate: {{ my_court.hire_price }} PLN/0.5h </p>
+        <p> Please be aware court have to be reserved for at least half hour.</p></br>
 
-
-    <p> Hire Rate: {{ my_court.hire_price }} PLN/0.5h </p>
-    <p> Please be aware court have to be reserved for at least half hour.</p></br>
-
-    <a href="{% url 'reservations_urls:courts-details' %}" class="button" style="color:white">Back</a>
-          <button type="submit" value="Submit">Reserve</button>
-</form>
+        <a href="{% url 'reservations_urls:courts-details' %}" class="button" style="color:white">Back</a>
+        <button type="submit" value="Submit">Summary</button>
+    </form>
 </div>
-
 
 
 {% endblock %}
