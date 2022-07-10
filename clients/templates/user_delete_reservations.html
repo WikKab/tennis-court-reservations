@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="content" xmlns="http://www.w3.org/1999/html"
+     xmlns="http://www.w3.org/1999/html">
+
+    <form method="post">
+        {% csrf_token %}
+        <h4>Confirm deleting Reservation</h4> </br></br>
+
+           <p> City: {{ object.court.city }} </br>
+            Court Name: {{ object.court.name }} </br>
+            Reservation date: {{ object.reservation_date }} </br>
+            Reserved from: {{ object.reservation_start }} </br>
+            Reserved till: {{ object.reservation_end }} </br>
+           </p>
+
+            </br></br>
+
+            <button type="submit" value="Submit" style="color:red">DELETE RESERVATION</button>
+
+            <a href="{% url 'clients_urls:profile-panel' %}"
+               class="button" style="color:white">CANCEL</a>
+
+
+    </form>
+</div>

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+ <h2>Your Reserved Courts: </h2></br>
+
+ <table class="table table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th>City</th>
+        <th>Court</th>
+        <th>Reservation Date</th>
+        <th>Reservation Starts</th>
+        <th>Reservation Ends</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for el in object_list %}
+        <tr>
+          <td>{{ el.court.city }}</td>
+          <td>{{ el.court.name }}</td>
+          <td>{{ el.reservation_date }}</td>
+          <td>{{ el.reservation_start }}</td>
+          <td>{{ el.reservation_end }}</td>
+        </tr>
+
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

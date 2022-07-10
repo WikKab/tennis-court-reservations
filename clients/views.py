@@ -2,10 +2,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.shortcuts import render, get_object_or_404
 
 from clients.models import Profile
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 from django.contrib.auth.forms import User, UserCreationForm, UserChangeForm
 from django.views.generic import CreateView, UpdateView, FormView
 from django.urls import reverse_lazy
+
+from reservations.models import Reservations
 from .forms import EditProfileForm
 
 
@@ -14,35 +16,39 @@ class ProfileView(ListView):
     model = Profile
 
 
-class ProfileListView(ListView):
-    template_name = 'user_profile.html'
-    model = Profile
-
-
-    # form_class = EditProfileForm
-    # success_url = reverse_lazy("clients_urls:user_profile")
-
-
 class UserReservationsView(ListView):
     template_name = 'user_reservations.html'
-    model = Profile
+    model = Reservations
 
 
 class UserEditReservations(ListView):
     template_name = 'user_edit_reservations.html'
-    model = Profile
+    model = Reservations
 
 
-class UserDeleteReservations(ListView):
+class UserEditReservationsView(ListView):
+    template_name = 'user_edit_reservations_view.html'
+    model = Reservations
+    ordering = 'reservation_date'
+
+
+class UserDeleteReservationsList(ListView):
+    template_name = 'user_delete_reservations_view.html'
+    model = Reservations
+    ordering = 'reservation_date'
+
+
+class UserDeleteReservations(DeleteView):
     template_name = 'user_delete_reservations.html'
-    model = Profile
+    model = Reservations
+    success_url = reverse_lazy("clients_urls:profile_panel")
 
 
 class UserEditView(UpdateView, FormView):
     model = Profile
     template_name = 'user_edit_profile.html'
     form_class = EditProfileForm
-    success_url = reverse_lazy("clients_urls:user_profile")
+    success_url = reverse_lazy("clients_urls:profile_panel")
 
     def get_object(self):
         return self.request.user
