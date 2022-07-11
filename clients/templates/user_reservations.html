@@ -1,29 +1,35 @@
 {% extends "base.html" %}
 
 {% block content %}
- <h2>Your Reserved Courts: </h2></br>
+<h2>Your Reserved Courts: </h2></br>
 
- <table class="table table-bordered" style="width:100%">
+<table class="table table-bordered" style="width:100%">
     <thead>
-      <tr>
+    <tr>
         <th>City</th>
         <th>Court</th>
         <th>Reservation Date</th>
         <th>Reservation Starts</th>
         <th>Reservation Ends</th>
-      </tr>
+        <th>Reservation cost [PLN]</th>
+        <th></th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-      {% for el in object_list %}
-        <tr>
-          <td>{{ el.court.city }}</td>
-          <td>{{ el.court.name }}</td>
-          <td>{{ el.reservation_date }}</td>
-          <td>{{ el.reservation_start }}</td>
-          <td>{{ el.reservation_end }}</td>
-        </tr>
+    {% for el in object_list %}
+    <tr>
+        <td>{{ el.court.city }}</td>
+        <td>{{ el.court.name }}</td>
+        <td>{{ el.reservation_date }}</td>
+        <td>{{ el.reservation_start }}</td>
+        <td>{{ el.reservation_end }}</td>
+        <td>{{ el.reservation_cost }}</td>
+        <td><a style="color:#85c34b" href="{% url 'reservations_urls:reservations-params-edit' el.id %}">EDIT</a></td>
+        <td><a style="color:#85c34b" href="{% url 'reservations_urls:reservation-delete' el.id %}">DELETE</a></td>
+    </tr>
 
-      {% endfor %}
+    {% endfor %}
     </tbody>
-  </table>
+</table>
 {% endblock %}

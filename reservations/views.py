@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, FormView, DeleteView, DetailView, UpdateView
-from reservations.models import TennisCourt, Reservations, AdminPanel
+from reservations.models import TennisCourt, Reservation, AdminPanel
 from clients.models import Profile
 from reservations.forms import (
     CreateReservationModelForm,
@@ -28,15 +28,6 @@ class CourtsListDetailView(ListView):
 
     ordering = 'city'
 
-    # def get_ordering(self):
-    #     return self.request.GET.get(
-    #         ('o', 'city')
-    #     )
-    #
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     return queryset.ordered(
-
 
 class CourtDetailView(DetailView):
     model = TennisCourt
@@ -45,17 +36,17 @@ class CourtDetailView(DetailView):
 
 class IndexListView(ListView):
     template_name = 'index.html'
-    model = Reservations
+    model = Reservation
 
 
 class ReservedCourtsListView(LoginRequiredMixin, ListView):
     template_name = 'reserved_courts_list_views.html'
-    model = Reservations
+    model = Reservation
 
 
 class ReservedCourtsDetailsView(LoginRequiredMixin, ListView):
     template_name = 'reserved_courts_details_views.html'
-    model = Reservations
+    model = Reservation
     ordering = '-reservation_date'
 
 
@@ -143,10 +134,10 @@ class CreateExactCourtReservation(View):
                     context={"form": creat_form, 'court': court}
                 )
             return render(
-                            request,
-                            template_name="exact_reservation_form.html",
-                            context={"form": form}
-                        )
+                request,
+                template_name="exact_reservation_form.html",
+                context={"form": form}
+            )
         form = ConfirmReservationForm(request.POST)
         if form.is_valid():
             r = form.save()
@@ -212,7 +203,7 @@ class CourtsParamsEditView(ListView):
 
 
 class ReservationsParamsEdit(UpdateView):
-    model = Reservations
+    model = Reservation
     # fields = '__all__'
     template_name = 'reservations_params_edit.html'
     form_class = ReservationsParamsEditForm
@@ -221,7 +212,7 @@ class ReservationsParamsEdit(UpdateView):
     def form_valid(self, form):
         print('lll', self.object.reservation_cost)
         success_url = self.get_success_url()
-        self.request.user.profile.wallet-=self.object.reservation_cost
+        self.request.user.profile.wallet -= self.object.reservation_cost
         self.object = form.save()
         print(self.object.reservation_cost)
         self.request.user.profile.wallet += self.object.reservation_cost
@@ -231,24 +222,24 @@ class ReservationsParamsEdit(UpdateView):
 
 class ReservationsParamsEditView(ListView):
     template_name = 'reservations_params_edit_view.html'
-    model = Reservations
+    model = Reservation
     ordering = 'reservation_date'
 
 
 class ReservationsListDetailAdminView(ListView):
     template_name = 'reservations_delete_admin_view.html'
-    model = Reservations
+    model = Reservation
     ordering = 'reservation_date'
 
 
 class DeleteReservation(DeleteView):
-    model = Reservations
+    model = Reservation
     template_name = 'reservation_delete.html'
     success_url = reverse_lazy('reservations_urls:reservations-details')
 
     def form_valid(self, form):
         success_url = self.get_success_url()
-        self.request.user.profile.wallet-=self.object.reservation_cost
+        self.request.user.profile.wallet -= self.object.reservation_cost
         self.object.delete()
         self.request.user.profile.save()
         return HttpResponseRedirect(success_url)

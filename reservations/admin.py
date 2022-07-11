@@ -1,5 +1,5 @@
 from django.contrib import admin
-from reservations.models import TennisCourt, Reservations
+from reservations.models import TennisCourt, Reservation
 from clients.models import Profile
 
 
@@ -33,7 +33,7 @@ class ReservationsAdmin(admin.ModelAdmin):
     # readonly_fields = ["id"]
 
 
-admin.site.register(Reservations, ReservationsAdmin)
+admin.site.register(Reservation, ReservationsAdmin)
 admin.site.register(TennisCourt, TennisCourtsAdmin)
 admin.site.register(Profile)
 

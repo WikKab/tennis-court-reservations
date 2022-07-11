@@ -8,7 +8,7 @@ from django.views.generic import CreateView, UpdateView, FormView
 from django.urls import reverse_lazy
 
 from reservations.forms import ReservationsParamsEditForm
-from reservations.models import Reservations
+from reservations.models import Reservation
 from .forms import EditProfileForm
 
 
@@ -19,15 +19,15 @@ class ProfileView(ListView):
 
 class UserReservationsView(ListView):
     template_name = 'user_reservations.html'
-    model = Reservations
+    model = Reservation
 
     def get_queryset(self):
-        return self.request.user.reservations_set.all()
+        return self.request.user.reservation_set.all()
 
 
 class UserEditReservations(FormView, UpdateView):
     template_name = 'user_edit_reservations.html'
-    model = Reservations
+    model = Reservation
     # fields = '__all__'
     form_class = ReservationsParamsEditForm
     success_url = reverse_lazy("clients_urls:user_reservations.html")
@@ -35,7 +35,7 @@ class UserEditReservations(FormView, UpdateView):
 
 class UserEditReservationsView(ListView):
     template_name = 'user_edit_reservations_view.html'
-    model = Reservations
+    model = Reservation
     ordering = 'reservation_date'
 
     def get_queryset(self):
@@ -44,7 +44,7 @@ class UserEditReservationsView(ListView):
 
 class UserDeleteReservationsList(ListView):
     template_name = 'user_delete_reservations_view.html'
-    model = Reservations
+    model = Reservation
     ordering = 'reservation_date'
 
     def get_queryset(self):
@@ -53,7 +53,7 @@ class UserDeleteReservationsList(ListView):
 
 class UserDeleteReservations(DeleteView):
     template_name = 'user_delete_reservations.html'
-    model = Reservations
+    model = Reservation
     success_url = reverse_lazy("clients_urls:profile_panel")
 
 

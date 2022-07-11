@@ -1,6 +1,5 @@
 from datetime import date, datetime
 
-
 import pandas as pd
 from django.core.exceptions import ValidationError
 from django.forms import (
@@ -12,38 +11,7 @@ from django.forms import (
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from reservations.models import Reservations, TennisCourt
-
-RENT_TIME = [
-    ('8.00', '8.00'),
-    ('8.30', '8.30'),
-    ('9.00', '9.00'),
-    ('9.30', '9.30'),
-    ('10.00', '10.00'),
-    ('10.30', '10.30'),
-    ('11.00', '11.00'),
-    ('11.30', '11.30'),
-    ('12.00', '12.00'),
-    ('12.30', '12.30'),
-    ('13.00', '13.00'),
-    ('13.30', '13.30'),
-    ('14.00', '14.00'),
-    ('14.30', '14.30'),
-    ('15.00', '15.00'),
-    ('15.30', '15.30'),
-    ('16.30', '16.00'),
-    ('17.00', '17.00'),
-    ('17.30', '17.30'),
-    ('18.00', '18.00'),
-    ('18.30', '18.30'),
-    ('19.00', '19.00'),
-    ('19.30', '19.30'),
-    ('20.00', '20.00'),
-    ('20.30', '20.30'),
-    ('21.00', '21.00'),
-    ('21.30', '21.30'),
-    ('22.00', '22.00'),
-]
+from reservations.models import Reservation, TennisCourt
 
 
 def hour_range(open_hour, close_hour):
@@ -56,9 +24,19 @@ def hour_range(open_hour, close_hour):
     return renting_time
 
 
+def hour_range_model_form(open_hour, close_hour):
+    datelist = pd.date_range(start=str(open_hour), end=str(close_hour),
+                             freq='0.5H').to_pydatetime().tolist()
+    renting_time = []
+    for hours in datelist:
+        hour = str(hours)[11:13] + '.' + str(hours)[14:16]
+        renting_time.append((hour, hour))
+    return renting_time
+
+
 class CreateReservationModelForm(ModelForm):
-    rez_start = Reservations.reservation_start
-    rez_end = Reservations.reservation_end
+    rez_start = Reservation.reservation_start
+    rez_end = Reservation.reservation_end
 
     def clean(self):
         cleaned_data = super().clean()
@@ -74,7 +52,7 @@ class CreateReservationModelForm(ModelForm):
         return cleaned_data
 
     class Meta:
-        model = Reservations
+        model = Reservation
         fields = [
             'court',
             'reservation_date',
@@ -84,8 +62,8 @@ class CreateReservationModelForm(ModelForm):
         widgets = {
             'reservation_date': SelectDateWidget(
                 empty_label=("Choose Day", "Choose Month", "Choose Year")),
-            'reservation_start': forms.Select(choices=RENT_TIME),
-            'reservation_end': Select(choices=RENT_TIME),
+            'reservation_start': forms.Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
+            'reservation_end': Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
         }
 
         help_texts = {'reservation_start': _('( hh.mm )'),
@@ -94,8 +72,8 @@ class CreateReservationModelForm(ModelForm):
 
 
 class CreateReservationWithSelectedCourtForm(ModelForm):
-    rez_start = Reservations.reservation_start
-    rez_end = Reservations.reservation_end
+    rez_start = Reservation.reservation_start
+    rez_end = Reservation.reservation_end
 
     def clean(self):
         cleaned_data = super().clean()
@@ -112,7 +90,7 @@ class CreateReservationWithSelectedCourtForm(ModelForm):
         return cleaned_data
 
     class Meta:
-        model = Reservations
+        model = Reservation
         fields = [
             'reservation_date',
             'reservation_start',
@@ -121,8 +99,8 @@ class CreateReservationWithSelectedCourtForm(ModelForm):
         widgets = {
             'reservation_date': SelectDateWidget(
                 empty_label=("Choose Day", "Choose Month", "Choose Year")),
-            'reservation_start': forms.Select(choices=RENT_TIME),
-            'reservation_end': Select(choices=RENT_TIME),
+            'reservation_start': forms.Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
+            'reservation_end': Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
         }
 
         help_texts = {'reservation_start': _('( hh.mm )'),
@@ -148,7 +126,6 @@ class CreateExactReservationModelForm(forms.Form):
     reservation_start = forms.ChoiceField(help_text='( hh.mm )', choices=())
     reservation_end = forms.ChoiceField(help_text='( hh.mm )', choices=())
 
-
     def clean(self):
         result = super().clean()
         if not self.errors:
@@ -163,17 +140,17 @@ class CreateExactReservationModelForm(forms.Form):
             if int(result["reservation_start"][:2]) == int(result["reservation_end"][:2]) and \
                     int(result["reservation_start"][3:5]) == int(result["reservation_end"][3:5]):
                 raise ValidationError("Reservation should be at least half hour long!")
-            if Reservations.objects.filter(reservation_date=result["reservation_date"],
-                                           reservation_start__lt=result["reservation_end"],
-                                           reservation_end__gt=result["reservation_start"],
-                                           ).exists():
+            if Reservation.objects.filter(reservation_date=result["reservation_date"],
+                                          reservation_start__lt=result["reservation_end"],
+                                          reservation_end__gt=result["reservation_start"],
+                                          ).exists():
                 raise ValidationError("Already exists reservation at that time! Choose another time.")
         return result
 
 
 class ConfirmReservationForm(forms.ModelForm):
     class Meta:
-        model = Reservations
+        model = Reservation
         fields = '__all__'
 
 
@@ -183,8 +160,8 @@ class AddCourtModelForm(ModelForm):
         # fields = '__all__'
         exclude = ['reservation_status']
         widgets = {
-            'open_hour': forms.Select(choices=RENT_TIME),
-            'close_hour': Select(choices=RENT_TIME),
+            'open_hour': forms.Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
+            'close_hour': Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
         }
 
         help_texts = {'open_hour': '( hh.mm )',
@@ -194,7 +171,7 @@ class AddCourtModelForm(ModelForm):
 
 class DeleteCourtForm(ModelForm):
     class Meta:
-        model = Reservations
+        model = Reservation
         fields = ['court']
         widgets = {
             'court': CheckboxSelectMultiple
@@ -207,8 +184,8 @@ class CourtsParamsEditForm(ModelForm):
         # fields = '__all__'
         exclude = ['reservation_status']
         widgets = {
-            'open_hour': forms.Select(choices=RENT_TIME),
-            'close_hour': Select(choices=RENT_TIME),
+            'open_hour': forms.Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
+            'close_hour': Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
         }
 
         help_texts = {'open_hour': _('( hh.mm )'),
@@ -218,7 +195,7 @@ class CourtsParamsEditForm(ModelForm):
 
 class ReservationsParamsEditForm(ModelForm):
     class Meta:
-        model = Reservations
+        model = Reservation
         fields = [
             'court',
             'reservation_date',
@@ -228,8 +205,8 @@ class ReservationsParamsEditForm(ModelForm):
         widgets = {
             'reservation_date': SelectDateWidget(
                 empty_label=("Choose Day", "Choose Month", "Choose Year")),
-            'reservation_start': forms.Select(choices=RENT_TIME),
-            'reservation_end': Select(choices=RENT_TIME),
+            'reservation_start': forms.Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
+            'reservation_end': Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
         }
 
         help_texts = {'reservation_start': _('( hh.mm )'),
