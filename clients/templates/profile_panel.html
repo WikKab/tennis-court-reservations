@@ -4,12 +4,12 @@
 
    <div class="content">
             <h2 style="text-align:center">Profile Panel </h2><br>
-       <p> Username: {{ user.username }}
-           Email: {{ user.email }}
-           First name: {{ user.first_name }}
-           Last name: {{ user.last_name }}
-           Wallet: {{ user.profile.wallet }}
-       </p>
+       <p> Username: {{ user.username }} </p>
+       <p>  Email: {{ user.email }} </p>
+       <p>  First name: {{ user.first_name }} </p>
+       <p>  Last name: {{ user.last_name }} </p>
+       <p>  Wallet: {{ user.profile.wallet }} </p>
+
     </div>
      <div class="navbar">
         <a class="navbar-brand" href="{% url 'clients_urls:user_reservations' %}">Reservations</a>
