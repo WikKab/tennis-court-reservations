@@ -3,13 +3,15 @@
 {% block content %}
 
 <div class="content">
- <h2>On our page you can make reservation at following locations: </h2>
+    <h2>On our page you can make reservation at following locations: </h2>
 
-        {% for o in object_list %}
+    {% for o in object_list %}
 
-            <li>{{ o }} </li>
+    <li>{{ o }}</li>
 
     {% endfor %}
+
+    <h3 style="text-align:left"> To create reservation you have to be verified user. Please sign up or login. </h3>
 </div>
 
 {% endblock %}

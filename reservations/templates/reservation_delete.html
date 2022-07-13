@@ -9,19 +9,20 @@
         {% csrf_token %}
         <h4>Confirm deleting Reservation</h4> </br></br>
 
-           <p> City: {{ object.court.city }} </br>
+        <p> User: {{ object.client }} </br>
+            City: {{ object.court.city }} </br>
             Court Name: {{ object.court.name }} </br>
             Reservation date: {{ object.reservation_date }} </br>
-            Reserved from: {{ object.reservation_start }} </br>
-            Reserved till: {{ object.reservation_end }} </br>
-           </p>
+            Reservation start: {{ object.reservation_start }} </br>
+            Reservation end: {{ object.reservation_end }} </br>
+        </p>
 
-            </br></br>
+        </br></br>
 
-            <button type="submit" value="Submit" style="color:red">DELETE RESERVATION</button>
+        <button type="submit" value="Submit" style="color:red">DELETE RESERVATION</button>
 
-            <a href="{% url 'reservations_urls:reservations-details' %}"
-               class="button" style="color:white">CANCEL</a>
+        <a href="{% url 'reservations_urls:reservations-details' %}"
+           class="button" style="color:white">CANCEL</a>
 
 
     </form>

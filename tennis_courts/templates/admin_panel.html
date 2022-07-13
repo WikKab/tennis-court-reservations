@@ -38,8 +38,7 @@ background-image: linear-gradient(
             <span class="glyphicon glyphicon-home"></span> Home</a>
         <a class="navbar-brand" href="{% url 'reservations_urls:courts-details' %}">Courts List</a>
         <a class="navbar-brand"
-           href="{% url 'reservations_urls:reserved_courts_details_views' %}"> Current reservations</a>
-        <a class="navbar-brand" href="{% url 'reservations_urls:reservation-form' %}">Reservation System</a>
+           href="{% url 'reservations_urls:reserved_courts_details_views' %}"> Latest reservations</a>
         <a class="navbar-brand navbar-right" href=" {% url 'logout' %} ">
                                      <span class="glyphicon glyphicon-log-out"></span> Logout</a>
     </div>
@@ -56,8 +55,6 @@ background-image: linear-gradient(
             <a class="navbar-brand" href="{% url 'reservations_urls:courts-detail-admin' %}">Delete Court</a>
             <a class="navbar-brand"
                href="{% url 'reservations_urls:courts-params-edit-view' %}">Change Court Params</a>
-            <a class="navbar-brand"
-               href="{% url 'reservations_urls:reservations-params-edit-view' %}">Change Reservations</a>
             <a class="navbar-brand"
                href="{% url 'reservations_urls:reservations-details' %}">Delete Reservations</a>
 

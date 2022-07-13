@@ -5,7 +5,6 @@ from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, FormView, DeleteView, DetailView, UpdateView
 from reservations.models import TennisCourt, Reservation, AdminPanel
-from clients.models import Profile
 from reservations.forms import (
     CreateReservationModelForm,
     AddCourtModelForm,
@@ -143,7 +142,7 @@ class CreateExactCourtReservation(View):
             r = form.save()
             self.request.user.profile.wallet += r.reservation_cost
             self.request.user.profile.save()
-        return HttpResponseRedirect(reverse("reservations_urls:reserved_courts_details_views"))
+        return HttpResponseRedirect(reverse("clients_urls:user_reservations"))
 
     @staticmethod
     def _calculate_cost(reservation_start, reservation_end, court, rent_of_equipment):
@@ -159,8 +158,6 @@ class CreateExactCourtReservation(View):
 
 class AddCourtFormView(PermissionRequiredMixin, FormView):
     permission_required = 'reservations_urls:add-court'
-    # # permission_denied_message = 'You do not have permissions to do it.'
-
     template_name = 'add_court_form.html'
     form_class = AddCourtModelForm
     success_url = reverse_lazy('reservations_urls:add-court')
@@ -232,10 +229,25 @@ class ReservationsListDetailAdminView(ListView):
     ordering = 'reservation_date'
 
 
+
+
 class DeleteReservation(DeleteView):
     model = Reservation
     template_name = 'reservation_delete.html'
-    success_url = reverse_lazy('reservations_urls:reservations-details')
+    success_url = reverse_lazy('clients_urls:user_reservations')
+
+    def form_valid(self, form):
+        success_url = self.get_success_url()
+        self.request.user.profile.wallet -= self.object.reservation_cost
+        self.object.delete()
+        self.request.user.profile.save()
+        return HttpResponseRedirect(success_url)
+
+
+class DeleteReservationUser(DeleteView):
+    model = Reservation
+    template_name = 'reservation_user_delete.html'
+    success_url = reverse_lazy('clients_urls:user_reservations')
 
     def form_valid(self, form):
         success_url = self.get_success_url()

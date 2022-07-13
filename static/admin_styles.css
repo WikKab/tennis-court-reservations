@@ -276,7 +276,6 @@ td{
     font-weight: bold;
     font-style: normal;
     text-decoration: none;
-
 }
 
 .table2 td {
@@ -303,6 +302,11 @@ background-color:grey;
 
 input{
 background-color:grey;
+}
+
+textarea {
+    background-color: gray;
+    resize: none;
 }
 
 button{

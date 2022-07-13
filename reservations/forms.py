@@ -157,11 +157,11 @@ class ConfirmReservationForm(forms.ModelForm):
 class AddCourtModelForm(ModelForm):
     class Meta:
         model = TennisCourt
-        # fields = '__all__'
         exclude = ['reservation_status']
         widgets = {
             'open_hour': forms.Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
             'close_hour': Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
+            'short_description': forms.Textarea()
         }
 
         help_texts = {'open_hour': '( hh.mm )',
@@ -186,6 +186,7 @@ class CourtsParamsEditForm(ModelForm):
         widgets = {
             'open_hour': forms.Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
             'close_hour': Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
+            'short_description': forms.Textarea()
         }
 
         help_texts = {'open_hour': _('( hh.mm )'),

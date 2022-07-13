@@ -14,12 +14,12 @@ urlpatterns = [
     path('court-exact-detail/<pk>', views.CourtDetailView.as_view(), name='court-exact-detail'),
 
     path(
-        'reserved-courts-list-view/',
+        'reserved-courts-list-views/',
         views.ReservedCourtsListView.as_view(),
         name='reserved_courts_list_views'),
 
     path(
-        'reserved-courts-details-view/',
+        'reserved-courts-details-views/',
         views.ReservedCourtsDetailsView.as_view(),
         name='reserved_courts_details_views'),
 
@@ -61,6 +61,8 @@ urlpatterns = [
     path('reservations-edit/<pk>', views.ReservationsParamsEdit.as_view(), name='reservations-params-edit'),
 
     path('reservation-delete/<pk>', views.DeleteReservation.as_view(), name='reservation-delete'),
+
+    path('reservation-user-delete/<pk>', views.DeleteReservationUser.as_view(), name='reservation-user-delete'),
 
     path('reservations-detail_admin_view/', views.ReservationsListDetailAdminView.as_view(), name='reservations-details'),
 

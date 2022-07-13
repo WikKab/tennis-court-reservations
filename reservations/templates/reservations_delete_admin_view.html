@@ -1,34 +1,34 @@
- {% extends "admin_panel.html" %}
+{% extends "admin_panel.html" %}
 
 {% block content %}
- <h2>Available Reservations vist. Click DELETE to remove Reservation: </h2></br>
+<h2>Available Reservations vist. Click DELETE to remove Reservation: </h2></br>
 
 <table class="table-bordered" style="width:100%">
     <thead>
-      <tr>
-            <th></th>
-            <th>&nbsp;&nbsp;User&nbsp;&nbsp;</th>
-            <th>&nbsp;City&nbsp;</th>
-            <th>Court Name</th>
-            <th>Reservation Date</th>
-            <th>Reservation Start</th>
-            <th>Reservation End</th>
-       </tr>
+    <tr>
+        <th>&nbsp;&nbsp;User&nbsp;&nbsp;</th>
+        <th>&nbsp;City&nbsp;</th>
+        <th>Court Name</th>
+        <th>Reservation Date</th>
+        <th>Reservation Start</th>
+        <th>Reservation End</th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-      {% for res in object_list %}
-        <tr>
-            <td><a style="color:#85c34b" href="{% url 'reservations_urls:reservation-delete' res.id %}">DELETE</a></td>
-            <td>{{ res.client }}</td>
-            <td>{{ res.court.city }}</td>
-            <td>{{ res.court.name }}</td>
-            <td>{{ res.reservation_date }}</td>
-            <td>{{ res.reservation_start }}</td>
-            <td>{{ res.reservation_end }}</td>
-        </tr>
+    {% for res in object_list %}
+    <tr>
+        <td>{{ res.client }}</td>
+        <td>{{ res.court.city }}</td>
+        <td>{{ res.court.name }}</td>
+        <td>{{ res.reservation_date }}</td>
+        <td>{{ res.reservation_start }}</td>
+        <td>{{ res.reservation_end }}</td>
+        <td><a style="color:#85c34b" href="{% url 'reservations_urls:reservation-delete' res.id %}">DELETE</a></td>
+    </tr>
 
-      {% endfor %}
+    {% endfor %}
     </tbody>
-  </table>
+</table>
 
 {% endblock %}
