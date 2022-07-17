@@ -4,15 +4,10 @@ from . import views
 app_name = 'clients_urls'
 
 urlpatterns = [
-    path('profile_panel/', views.ProfileView.as_view(), name='profile_panel'),
-    path('user_edit_profile/', views.UserEditView.as_view(), name='user_edit_profile'),
-    path('user_reservations/', views.UserReservationsView.as_view(), name='user_reservations'),
-    path('user_edit_reservations/<pk>', views.UserEditReservations.as_view(), name='user_edit_reservations'),
-    path('user_edit_reservations_view/', views.UserEditReservationsView.as_view(), name='user_edit_reservations_view'),
-    path('user_delete_reservations/<pk>', views.UserDeleteReservations.as_view(), name='user_delete_reservations'),
-    path('user_delete_reservations_view/', views.UserDeleteReservationsList.as_view(),
-         name='user_delete_reservations_view'),
-
+    path('profile-panel/', views.ProfileView.as_view(), name='profile-panel'),
+    path('user-edit-profile/', views.UserEditView.as_view(), name='user-edit-profile'),
+    path('user-reservations/', views.UserReservationsView.as_view(), name='user-reservations'),
+    path('profile-list-view/', views.ProfileListView.as_view(), name='profile-list-view'),
 ]
 
 

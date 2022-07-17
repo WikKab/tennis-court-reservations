@@ -10,16 +10,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="../../static/admin_styles.css" />
+    <link rel="stylesheet" href="../../static/admin_styles.css"/>
     <style>
-.bg-image
-{
-background-image: linear-gradient(
-                                    0deg,
-                                    rgba(0, 0, 0, 0.6),
-                                    rgba(0, 0, 0, 0.6)),
-                                    url({% static 'tennis_court.jpg' %});
-}
+        .bg-image {
+            background-image: linear-gradient(
+                    0deg,
+                    rgba(0, 0, 0, 0.6),
+                    rgba(0, 0, 0, 0.6)),
+            url({% static 'tennis_court.jpg' %});
+        }
     </style>
 </head>
 
@@ -39,45 +38,42 @@ background-image: linear-gradient(
         <a class="navbar-brand" href="{% url 'reservations_urls:courts-details' %}">Courts List</a>
         <a class="navbar-brand"
            href="{% url 'reservations_urls:reserved_courts_details_views' %}"> Latest reservations</a>
-        <a class="navbar-brand navbar-right" href=" {% url 'logout' %} ">
-                                     <span class="glyphicon glyphicon-log-out"></span> Logout</a>
+        <a class="navbar-brand navbar-right" href=" {% url 'accounts_urls:logout' %} ">
+            <span class="glyphicon glyphicon-log-out"></span> Logout</a>
     </div>
 
 
-
-
-        {% if perms.foo %}
+    {% if perms.foo %}
     <nav class="navbar">
         <p style="color: red">*** ADMINISTRATOR PANEL *** </p>
         <div class="navbar-header">
 
             <a class="navbar-brand" href="{% url 'reservations_urls:add-court' %}">Add New Court</a>
-            <a class="navbar-brand" href="{% url 'reservations_urls:courts-detail-admin' %}">Delete Court</a>
+            <a class="navbar-brand" href="{% url 'reservations_urls:delete-court' %}">Delete Court</a>
             <a class="navbar-brand"
-               href="{% url 'reservations_urls:courts-params-edit-view' %}">Change Court Params</a>
+               href="{% url 'reservations_urls:court-params-edit' %}">Change Court Params</a>
             <a class="navbar-brand"
-               href="{% url 'reservations_urls:reservations-details' %}">Delete Reservations</a>
+               href="{% url 'reservations_urls:reservation-delete-list' %}">Delete Reservation</a>
 
 
-        <div class="navbar-header dropdown navbar-right">
-            <button class="dropbtn"><b>**USERS MANAGEMENT**</b></button>
-                  <div class="dropdown-content">
-                        <a class="navbar-brand"
-                           href="{% url 'accounts_urls:register' %}">Create User</a>
-                        <a class="navbar-brand" href="#">Delete User</a>
-                        <a class="navbar-brand" href="#">Modify User</a>
-                  </div>
-        </div>
+            <div class="navbar-header dropdown navbar-right">
+                <button class="dropbtn"><b>**USER MANAGEMENT**</b></button>
+                <div class="dropdown-content">
+                    <a class="navbar-brand" href="{% url 'clients_urls:profile-list-view' %}">Show Users</a>
+                    <a class="navbar-brand"
+                       href="{% url 'accounts_urls:register' %}">Create New User</a>
+                </div>
+            </div>
     </nav>
 
-        {% endif %}
+    {% endif %}
 
-<div class="content_box">
-            {% block content %}{% endblock %}
-</div>
+    <div class="content_box">
+        {% block content %}{% endblock %}
+    </div>
 
 
-<footer><b>Wiktor, Krystian, Daniel </br>ZDPyt49 2021/2022</b></footer>
+    <footer><b>Wiktor, Krystian, Daniel </br>ZDPyt49 2021/2022</b></footer>
 
 </body>
 </html>

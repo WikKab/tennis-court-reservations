@@ -13,15 +13,14 @@
             City: {{ object.court.city }} </br>
             Court Name: {{ object.court.name }} </br>
             Reservation date: {{ object.reservation_date }} </br>
-            Reservation start: {{ object.reservation_start }} </br>
-            Reservation end: {{ object.reservation_end }} </br>
+            Reservation time: {{ object.reservation_start }} - {{ object.reservation_end }} </br>
         </p>
 
         </br></br>
 
         <button type="submit" value="Submit" style="color:red">DELETE RESERVATION</button>
 
-        <a href="{% url 'reservations_urls:reservations-details' %}"
+        <a href="{% url 'reservations_urls:reservation-delete-list' %}"
            class="button" style="color:white">CANCEL</a>
 
 

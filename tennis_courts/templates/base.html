@@ -38,7 +38,7 @@
 
 
             {% else %}
-            <a class="navbar-brand" href="{% url 'reservations_urls:courts' %}">Courts List</a>
+            <a class="navbar-brand" href="{% url 'reservations_urls:courts-list' %}">Courts List</a>
             {% endif %}
 
         </div>
@@ -50,9 +50,9 @@
             <button class="dropbtn"><b>{{ user }}</b></button>
             <div class="dropdown-content">
 
-                <a class="navbar-brand" href="{% url 'clients_urls:profile_panel' %}">
+                <a class="navbar-brand" href="{% url 'clients_urls:profile-panel' %}">
                     <span class="glyphicon glyphicon-user"></span> My Profile</a>
-                <a class="navbar-brand" href="{% url 'clients_urls:user_reservations' %}">
+                <a class="navbar-brand" href="{% url 'clients_urls:user-reservations' %}">
                     <span class="glyphicon glyphicon-eye-open"></span> My Reservations</a>
                 <a class="navbar-brand" href=" {% url 'accounts_urls:change-password' %}">
                     <span class="glyphicon glyphicon-pencil"></span> Change Password</a>
@@ -60,14 +60,14 @@
                 <a class="navbar-brand" href="{% url 'password_reset'%}">
                     <span class="glyphicon glyphicon-cog"></span> Password Reset</a>
 
-                <a class="navbar-brand" href=" {% url 'logout' %} ">
+                <a class="navbar-brand" href=" {% url 'accounts_urls:logout' %} ">
                     <span class="glyphicon glyphicon-log-out"></span> Logout</a>
                 {% else %}
 
                 <a class="navbar-brand" href="{% url 'accounts_urls:register' %}">
                     <span class="glyphicon glyphicon-user"></span> Sign Up</a>
 
-                <a class="navbar-brand" href=" {% url 'reservations_urls:login_main' %} ">
+                <a class="navbar-brand" href=" {% url 'accounts_urls:login_main' %} ">
                     <span class="glyphicon glyphicon-log-in"></span> Login</a>
 
             </div>

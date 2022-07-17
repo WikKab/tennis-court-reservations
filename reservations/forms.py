@@ -4,7 +4,6 @@ import pandas as pd
 from django.core.exceptions import ValidationError
 from django.forms import (
     ModelForm,
-    SelectDateWidget,
     Select,
     CheckboxSelectMultiple,
 )
@@ -33,79 +32,6 @@ def hour_range_model_form(open_hour, close_hour):
         renting_time.append((hour, hour))
     return renting_time
 
-
-class CreateReservationModelForm(ModelForm):
-    rez_start = Reservation.reservation_start
-    rez_end = Reservation.reservation_end
-
-    def clean(self):
-        cleaned_data = super().clean()
-        rez_start = cleaned_data.get('reservation_start')
-        rez_end = cleaned_data.get('reservation_end')
-
-        if rez_end < rez_start:
-            raise ValidationError(f'WARNING!!! Reservation end time you have chosen is lower than '
-                                  f'start of your reservation. Change reservation finish time.')
-        if rez_end == rez_start:
-            raise ValidationError(f'WARNING!!! Reservation start and end time are the same. '
-                                  f' Change reservation time.')
-        return cleaned_data
-
-    class Meta:
-        model = Reservation
-        fields = [
-            'court',
-            'reservation_date',
-            'reservation_start',
-            'reservation_end',
-        ]
-        widgets = {
-            'reservation_date': SelectDateWidget(
-                empty_label=("Choose Day", "Choose Month", "Choose Year")),
-            'reservation_start': forms.Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
-            'reservation_end': Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
-        }
-
-        help_texts = {'reservation_start': _('( hh.mm )'),
-                      'reservation_end': _('( hh.mm )'),
-                      }
-
-
-class CreateReservationWithSelectedCourtForm(ModelForm):
-    rez_start = Reservation.reservation_start
-    rez_end = Reservation.reservation_end
-
-    def clean(self):
-        cleaned_data = super().clean()
-        rez_start = cleaned_data.get('reservation_start')
-        rez_end = cleaned_data.get('reservation_end')
-
-        if rez_end < rez_start:
-            raise ValidationError(f'WARNING!!! '
-                                  f'Reservation end time you have chosen is before your reservation '
-                                  f'starts. Change reservation start or end time.')
-        if rez_end == rez_start:
-            raise ValidationError(f'WARNING!!! Reservation start and end time are the same. '
-                                  f' Change reservation start or end time.')
-        return cleaned_data
-
-    class Meta:
-        model = Reservation
-        fields = [
-            'reservation_date',
-            'reservation_start',
-            'reservation_end',
-        ]
-        widgets = {
-            'reservation_date': SelectDateWidget(
-                empty_label=("Choose Day", "Choose Month", "Choose Year")),
-            'reservation_start': forms.Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
-            'reservation_end': Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
-        }
-
-        help_texts = {'reservation_start': _('( hh.mm )'),
-                      'reservation_end': _('( hh.mm )'),
-                      }
 
 
 class CreateExactReservationModelForm(forms.Form):
@@ -193,27 +119,3 @@ class CourtsParamsEditForm(ModelForm):
                       'close_hour': _('( hh.mm )'),
                       }
 
-
-class ReservationsParamsEditForm(ModelForm):
-    class Meta:
-        model = Reservation
-        fields = [
-            'court',
-            'reservation_date',
-            'reservation_start',
-            'reservation_end',
-        ]
-        widgets = {
-            'reservation_date': SelectDateWidget(
-                empty_label=("Choose Day", "Choose Month", "Choose Year")),
-            'reservation_start': forms.Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
-            'reservation_end': Select(choices=hour_range_model_form('06:00:00', '23:00:00')),
-        }
-
-        help_texts = {'reservation_start': _('( hh.mm )'),
-                      'reservation_end': _('( hh.mm )'),
-                      }
-
-
-if __name__ == '__main__':
-    pass

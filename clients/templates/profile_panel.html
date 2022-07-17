@@ -1,31 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-   <div class="content">
-            <h1 style="text-align:center">{{ user.username }}'s Profile </h1><br>
+<div class="content">
+    <h1 style="text-align:center">{{ user.username }}'s Profile </h1><br>
 
-       <h4> Username: {{ user.username }} </h4><br>
-       <h4>  Email: {{ user.email }} </h4><br>
-       <h4>  First name: {{ user.first_name }} </h4><br>
-       <h4>  Last name: {{ user.last_name }} </h4><br>
-       <h4>  In total to pay: {{ user.profile.wallet }} PLN </h4><br>
-       <a class="navbar-brand" href="{% url 'clients_urls:user_edit_profile' %}">
-           <span class="glyphicon glyphicon-pencil"></span>   Edit Profile</a>
-       <a class="navbar-brand" href="{% url 'clients_urls:user_reservations' %}">
-            <span class="glyphicon glyphicon-eye-open"></span>   See my reservations </a>
-       <br><br>
-       <br>
-
-
-
-<!--    </div>-->
-<!--     <div class="navbar">-->
-<!--        <a class="navbar-brand" href="{% url 'clients_urls:user_reservations' %}">My Reservations</a>-->
-<!--&lt;!&ndash;        <a class="navbar-brand" href="{% url 'clients_urls:user_edit_reservations_view' %}"> Edit Reservations</a>&ndash;&gt;-->
-<!--&lt;!&ndash;        <a class="navbar-brand" href="{% url 'clients_urls:user_delete_reservations_view' %}">Delete Reservation</a>&ndash;&gt;-->
+    <h4> Username: {{ user.username }} </h4><br>
+    <h4> Email: {{ user.email }} </h4><br>
+    <h4> First name: {{ user.first_name }} </h4><br>
+    <h4> Last name: {{ user.last_name }} </h4><br>
+    <h4> In total to pay: {{ user.profile.wallet }} PLN </h4><br>
+    <a class="navbar-brand" href="{% url 'clients_urls:user-edit-profile' %}">
+        <span class="glyphicon glyphicon-pencil"></span> Edit Profile</a>
+    <a class="navbar-brand" href="{% url 'clients_urls:user-reservations' %}">
+        <span class="glyphicon glyphicon-eye-open"></span> See my reservations </a>
+    <br><br>
+    <br>
 
 
-<!--    </div>-->
-
-
-{% endblock %}
+    {% endblock %}

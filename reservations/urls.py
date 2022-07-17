@@ -1,69 +1,45 @@
-from django.contrib import admin
 from django.urls import path
 from . import views
 
 app_name = 'reservations_urls'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
 
-    path('courts/', views.CourtsListView.as_view(), name='courts'),
+    path('index/', views.IndexListView.as_view(), name='index-list-view'),
+
+    path('courts-list/', views.CourtsListView.as_view(), name='courts-list'),
 
     path('courts-details/', views.CourtsListDetailView.as_view(), name='courts-details'),
 
     path('court-exact-detail/<pk>', views.CourtDetailView.as_view(), name='court-exact-detail'),
 
     path(
-        'reserved-courts-list-views/',
-        views.ReservedCourtsListView.as_view(),
-        name='reserved_courts_list_views'),
-
-    path(
         'reserved-courts-details-views/',
         views.ReservedCourtsDetailsView.as_view(),
         name='reserved_courts_details_views'),
 
-    path('index/', views.IndexListView.as_view(), name='index-list-view'),
-
-    path('reservations/', views.ReservationSystemListView.as_view(), name='reservations'),
-
-    path('login/', views.Login.as_view(), name='login_main'),
-
-    path('logout/', views.Logout.as_view(), name='logout'),
 
     path('admin-panel/', views.AdminPanel.as_view(), name='admin-panel'),
 
-    path('reservation-form/', views.CreateReservationFormView.as_view(), name='reservation-form'),
-
-    path('reservation-court-selection/',
-         views.CreateReservationCourtSelect.as_view(), name='reservation-court-selection'),
-
-    path('reservation-with-selected-court/<pk>',
-         views.CreateReservationWithSelectedCourt.as_view(), name='reservation-with-selected-court'),
-
-
     path('add-court/', views.AddCourtFormView.as_view(), name='add-court'),
 
-    path('delete-court/<pk>', views.DeleteCourtView.as_view(), name='delete'),
+    path('delete-court/', views.DeleteCourtListView.as_view(), name='delete-court'),
 
-    path('courts-detail_admin_view/', views.CourtsListDetailAdminView.as_view(), name='courts-detail-admin'),
+    path('delete-exact-court/<pk>', views.DeleteExactCourtView.as_view(), name='delete-exact-court'),
 
-    path('courts-params/', views.CourtsParamsEditView.as_view(), name='courts-params-edit-view'),
+    path('court-params-edit/', views.CourtsParamsEditView.as_view(), name='court-params-edit'),
 
-    path('courts-edit/<pk>', views.CourtParamsEdit.as_view(), name='courts-params-edit'),
+    path('exact-court-edit/<pk>', views.ExactCourtParamsEdit.as_view(), name='exact-court-edit'),
 
     path('create-exact-reservation/<pk>',
          views.CreateExactCourtReservation.as_view(), name='create-exact-reservation'),
 
-
-    path('reservations-params/', views.ReservationsParamsEditView.as_view(), name='reservations-params-edit-view'),
-
-    path('reservations-edit/<pk>', views.ReservationsParamsEdit.as_view(), name='reservations-params-edit'),
+    path('reservation-delete-list/', views.ReservationsDeleteList.as_view(),
+         name='reservation-delete-list'),
 
     path('reservation-delete/<pk>', views.DeleteReservation.as_view(), name='reservation-delete'),
 
-    path('reservation-user-delete/<pk>', views.DeleteReservationUser.as_view(), name='reservation-user-delete'),
+    path('reservation-delete-user/<pk>', views.DeleteReservationUser.as_view(), name='reservation-delete-user'),
 
-    path('reservations-detail_admin_view/', views.ReservationsListDetailAdminView.as_view(), name='reservations-details'),
 
 ]

@@ -1,0 +1,26 @@
+{% extends "admin_panel.html" %}
+
+{% block content %}
+
+<div class="content" xmlns="http://www.w3.org/1999/html"
+     xmlns="http://www.w3.org/1999/html">
+
+    <form method="post">
+        {% csrf_token %}
+        <h4>Confirm deleting Court</h4> </br></br>
+
+           <p> City: {{ object.city }} </br>
+            Court Name: {{ object.name }} </br>
+            Open time: {{ object.open_hour }} - {{ object.close_hour }} </br>
+            Hire Rent price: {{ object.hire_price }} [PLN/0.5h] </br>
+           </p>
+
+            </br></br>
+
+            <button type="submit" value="Submit" style="color:red">DELETE COURT</button>
+            <a href="{% url 'reservations_urls:delete-court' %}" class="button" style="color:white">CANCEL</a>
+
+    </form>
+</div>
+
+{% endblock %}

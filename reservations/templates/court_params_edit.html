@@ -10,9 +10,9 @@
         <th>Court Name</th>
         <th>Opening at</th>
         <th>Closing at</th>
-        <th>Hire Rate</br> [ PLN/0.5h ]</th>
-        <th>Is equipment rent</th>
-        <th>Equipment rent price</th>
+        <th>Hire Rate</br> [PLN/0.5h]</th>
+        <th>Equipment rent</th>
+        <th>Equipment rent price [PLN]</th>
         <th></th>
 
     </tr>
@@ -25,9 +25,9 @@
         <td>{{ el.open_hour }}</td>
         <td>{{ el.close_hour }}</td>
         <td>{{ el.hire_price }}</td>
-        <td>{% if el.equipment_rent %} Yes {% else %} No {%endif %}</td>
+        <td>{% if el.equipment_rent %} Available {% else %} Not Available {%endif %}</td>
         <td>{{ el.equipment_cost }}</td>
-        <td><a style="color:#85c34b" href="{% url 'reservations_urls:courts-params-edit' el.id %}">EDIT</a></td>
+        <td><a style="color:#85c34b" href="{% url 'reservations_urls:exact-court-edit' el.id %}">EDIT</a></td>
     </tr>
 
     {% endfor %}

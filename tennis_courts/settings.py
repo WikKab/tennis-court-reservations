@@ -135,7 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # LOGIN_URL = "/reservations/index/"
 LOGIN_REDIRECT_URL = "../../../reservations/index/"
-LOGOUT_REDIRECT_URL = "../../../reservations/logout/"
+LOGOUT_REDIRECT_URL = "../../../reservations/index/"
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"

@@ -1,0 +1,29 @@
+{% extends "admin_panel.html" %}
+{% block content %}
+<h2>Registered users: </h2>
+<table class="table table-bordered" style="width:100%">
+    <thead>
+    <tr>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Wallet [PLN]</th>
+        <th>Date joined</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for el in object_list %}
+    <tr>
+        <td>{{ el.user.username }}</td>
+        <td>{{ el.user.first_name }}</td>
+        <td>{{ el.user.last_name }}</td>
+        <td>{{ el.user.email }}</td>
+        <td>{{ el.wallet }}</td>
+        <td>{{ el.user.date_joined }}</td>
+    </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

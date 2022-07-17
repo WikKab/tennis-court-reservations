@@ -24,7 +24,7 @@
         <td>{{ el.reservation_start }}</td>
         <td>{{ el.reservation_end }}</td>
         <td>{{ el.reservation_cost }}</td>
-        <td><a style="color:#85c34b" href="{% url 'reservations_urls:reservation-user-delete' el.id %}">DELETE</a></td>
+        <td><a style="color:#85c34b" href="{% url 'reservations_urls:reservation-delete-user' el.id %}">DELETE</a></td>
     </tr>
 
     {% endfor %}

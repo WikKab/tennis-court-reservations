@@ -1,23 +1,21 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.http import Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import ListView, FormView, DeleteView, DetailView, UpdateView
-from reservations.models import TennisCourt, Reservation, AdminPanel
+
 from reservations.forms import (
-    CreateReservationModelForm,
     AddCourtModelForm,
     CreateExactReservationModelForm,
     CourtsParamsEditForm,
-    ReservationsParamsEditForm,
-    CreateReservationWithSelectedCourtForm,
     ConfirmReservationForm,
 )
+from reservations.models import TennisCourt, Reservation, AdminPanel
 
 
 class CourtsListView(ListView):
-    template_name = 'courts.html'
+    template_name = 'courts_list.html'
     model = TennisCourt
 
 
@@ -38,63 +36,15 @@ class IndexListView(ListView):
     model = Reservation
 
 
-class ReservedCourtsListView(LoginRequiredMixin, ListView):
-    template_name = 'reserved_courts_list_views.html'
-    model = Reservation
-
-
 class ReservedCourtsDetailsView(LoginRequiredMixin, ListView):
     template_name = 'reserved_courts_details_views.html'
     model = Reservation
     ordering = '-reservation_date'
 
 
-class ReservationSystemListView(LoginRequiredMixin, ListView):
-    template_name = 'reservations_page.html'
-    model = TennisCourt
-
-
-class Login(ListView):
-    template_name = 'login_main.html'
-    model = TennisCourt
-
-
-class Logout(ListView):
-    template_name = 'logout.html'
-    model = TennisCourt
-
-
 class AdminPanel(ListView):
     template_name = 'admin_panel.html'
     model = AdminPanel
-
-
-class CreateReservationFormView(LoginRequiredMixin, FormView):
-    template_name = 'reservation_form.html'
-    form_class = CreateReservationModelForm
-    success_url = reverse_lazy('reservations_urls:reserved_courts_details_views')
-
-    def form_valid(self, form):
-        result = super().form_valid(form)
-        form.save()
-        return result
-
-
-class CreateReservationCourtSelect(LoginRequiredMixin, ListView):
-    model = TennisCourt
-    template_name = 'reservation_court_selection.html'
-    ordering = 'city'
-
-
-class CreateReservationWithSelectedCourt(LoginRequiredMixin, FormView):
-    template_name = 'reservation_with_selected_court.html'
-    form_class = CreateReservationWithSelectedCourtForm
-    success_url = reverse_lazy('reservations_urls:reserved_courts_details_views')
-
-    def form_valid(self, form):
-        result = super().form_valid(form)
-        form.save()
-        return result
 
 
 class CreateExactCourtReservation(View):
@@ -142,7 +92,7 @@ class CreateExactCourtReservation(View):
             r = form.save()
             self.request.user.profile.wallet += r.reservation_cost
             self.request.user.profile.save()
-        return HttpResponseRedirect(reverse("clients_urls:user_reservations"))
+        return HttpResponseRedirect(reverse("clients_urls:user-reservations"))
 
     @staticmethod
     def _calculate_cost(reservation_start, reservation_end, court, rent_of_equipment):
@@ -160,7 +110,7 @@ class AddCourtFormView(PermissionRequiredMixin, FormView):
     permission_required = 'reservations_urls:add-court'
     template_name = 'add_court_form.html'
     form_class = AddCourtModelForm
-    success_url = reverse_lazy('reservations_urls:add-court')
+    success_url = reverse_lazy('reservations_urls:delete-court')
 
     def form_valid(self, form):
         result = super().form_valid(form)
@@ -171,70 +121,45 @@ class AddCourtFormView(PermissionRequiredMixin, FormView):
         return self.request.user.username.startwith('admin')
 
 
-class CourtsListDetailAdminView(ListView):
-    template_name = 'delete_court_admin_view.html'
+class DeleteCourtListView(ListView):
+    template_name = 'delete_court.html'
     model = TennisCourt
     context_object_name = 'object2'
     ordering = 'city'
 
 
-class DeleteCourtView(DeleteView):
+class DeleteExactCourtView(DeleteView):
     model = TennisCourt
-    template_name = 'delete_court.html'
+    template_name = 'delete_exact_court.html'
     context_object_name = 'object2'
-    success_url = reverse_lazy('reservations_urls:courts-detail-admin')
+    success_url = reverse_lazy('reservations_urls:delete-court')
 
 
-class CourtParamsEdit(FormView, UpdateView):
-    model = TennisCourt
-    # fields = '__all__'
-    template_name = 'courts_params_edit.html'
-    form_class = CourtsParamsEditForm
-    success_url = reverse_lazy('reservations_urls:courts-params-edit-view')
 
 
 class CourtsParamsEditView(ListView):
-    template_name = 'courts_params_edit_view.html'
+    template_name = 'court_params_edit.html'
     model = TennisCourt
     ordering = 'city'
 
-
-class ReservationsParamsEdit(UpdateView):
-    model = Reservation
-    # fields = '__all__'
-    template_name = 'reservations_params_edit.html'
-    form_class = ReservationsParamsEditForm
-    success_url = reverse_lazy('reservations_urls:reservations-params-edit-view')
-
-    def form_valid(self, form):
-        print('lll', self.object.reservation_cost)
-        success_url = self.get_success_url()
-        self.request.user.profile.wallet -= self.object.reservation_cost
-        self.object = form.save()
-        print(self.object.reservation_cost)
-        self.request.user.profile.wallet += self.object.reservation_cost
-        self.request.user.profile.save()
-        return HttpResponseRedirect(success_url)
+class ExactCourtParamsEdit(FormView, UpdateView):
+    model = TennisCourt
+    template_name = 'exact_court_params_edit.html'
+    form_class = CourtsParamsEditForm
+    success_url = reverse_lazy('reservations_urls:court-params-edit')
 
 
-class ReservationsParamsEditView(ListView):
-    template_name = 'reservations_params_edit_view.html'
+
+class ReservationsDeleteList(ListView):
+    template_name = 'reservation_delete_list.html'
     model = Reservation
     ordering = 'reservation_date'
-
-
-class ReservationsListDetailAdminView(ListView):
-    template_name = 'reservations_delete_admin_view.html'
-    model = Reservation
-    ordering = 'reservation_date'
-
-
 
 
 class DeleteReservation(DeleteView):
     model = Reservation
     template_name = 'reservation_delete.html'
-    success_url = reverse_lazy('clients_urls:user_reservations')
+    success_url = reverse_lazy('reservations_urls:reservation-delete-list')
 
     def form_valid(self, form):
         success_url = self.get_success_url()
@@ -246,8 +171,8 @@ class DeleteReservation(DeleteView):
 
 class DeleteReservationUser(DeleteView):
     model = Reservation
-    template_name = 'reservation_user_delete.html'
-    success_url = reverse_lazy('clients_urls:user_reservations')
+    template_name = 'reservation_delete_user.html'
+    success_url = reverse_lazy('clients_urls:user-reservations')
 
     def form_valid(self, form):
         success_url = self.get_success_url()
