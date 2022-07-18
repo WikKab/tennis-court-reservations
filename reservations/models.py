@@ -1,9 +1,6 @@
-from time import strptime
 
 from django.db import models
 from django.contrib.auth.models import User
-from django.urls import reverse
-from datetime import datetime
 
 
 
@@ -50,10 +47,8 @@ class Reservation(models.Model):
 
     reservation_cost = models.IntegerField(default=0)
 
-
     def __str__(self):
         return f'{self.court}'
-
 
 
 class AdminPanel(models.Model):

@@ -14,40 +14,34 @@ from reservations.forms import (
 from reservations.models import TennisCourt, Reservation, AdminPanel
 
 
-class CourtsListView(ListView):
-    template_name = 'courts_list.html'
-    model = TennisCourt
-
-
-class CourtsListDetailView(ListView):
-    template_name = 'courts_details.html'
-    model = TennisCourt
-
-    ordering = 'city'
-
-
-class CourtDetailView(DetailView):
-    model = TennisCourt
-    template_name = 'court_exact_detail.html'
-
-
 class IndexListView(ListView):
     template_name = 'index.html'
     model = Reservation
 
 
+class CourtsListView(ListView):
+    template_name = 'courts_list.html'
+    model = TennisCourt
+
+
+class CourtsListDetailView(LoginRequiredMixin, ListView):
+    template_name = 'courts_details.html'
+    model = TennisCourt
+    ordering = 'city'
+
+
+class CourtDetailView(LoginRequiredMixin, DetailView):
+    model = TennisCourt
+    template_name = 'court_exact_detail.html'
+
+
 class ReservedCourtsDetailsView(LoginRequiredMixin, ListView):
     template_name = 'reserved_courts_details_views.html'
     model = Reservation
-    ordering = '-reservation_date'
+    ordering = 'reservation_date'
 
 
-class AdminPanel(ListView):
-    template_name = 'admin_panel.html'
-    model = AdminPanel
-
-
-class CreateExactCourtReservation(View):
+class CreateExactCourtReservation(LoginRequiredMixin, View):
     def get(self, request, pk):
         court = get_object_or_404(TennisCourt, pk=pk)
         return render(
@@ -66,7 +60,7 @@ class CreateExactCourtReservation(View):
                 reservation_end = form.cleaned_data["reservation_end"]
                 rent_of_equipment = form.cleaned_data["rent_of_equipment"]
 
-                creat_form = ConfirmReservationForm(
+                create_form = ConfirmReservationForm(
                     initial={'court': court,
                              'reservation_date': reservation_date,
                              'reservation_start': reservation_start.replace(':', '.'),
@@ -80,7 +74,7 @@ class CreateExactCourtReservation(View):
                 return render(
                     request,
                     template_name="confirm_exact_reservation.html",
-                    context={"form": creat_form, 'court': court}
+                    context={"form": create_form, 'court': court}
                 )
             return render(
                 request,
@@ -106,6 +100,12 @@ class CreateExactCourtReservation(View):
                                     60 - start_minute) / 30) + court.equipment_cost
 
 
+class AdminPanel(PermissionRequiredMixin, ListView):
+    permission_required = 'reservations_urls:admin-panel'
+    template_name = 'admin_panel.html'
+    model = AdminPanel
+
+
 class AddCourtFormView(PermissionRequiredMixin, FormView):
     permission_required = 'reservations_urls:add-court'
     template_name = 'add_court_form.html'
@@ -121,42 +121,44 @@ class AddCourtFormView(PermissionRequiredMixin, FormView):
         return self.request.user.username.startwith('admin')
 
 
-class DeleteCourtListView(ListView):
+class DeleteCourtListView(PermissionRequiredMixin, ListView):
+    permission_required = 'reservations_urls:delete-court'
     template_name = 'delete_court.html'
     model = TennisCourt
-    context_object_name = 'object2'
     ordering = 'city'
 
 
-class DeleteExactCourtView(DeleteView):
+class DeleteExactCourtView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'reservations_urls:delete-exact-court'
     model = TennisCourt
     template_name = 'delete_exact_court.html'
-    context_object_name = 'object2'
     success_url = reverse_lazy('reservations_urls:delete-court')
 
 
-
-
-class CourtsParamsEditView(ListView):
+class CourtsParamsEditView(PermissionRequiredMixin, ListView):
+    permission_required = 'reservations_urls:court-params-edit'
     template_name = 'court_params_edit.html'
     model = TennisCourt
     ordering = 'city'
 
-class ExactCourtParamsEdit(FormView, UpdateView):
+
+class ExactCourtParamsEdit(PermissionRequiredMixin, FormView, UpdateView):
+    permission_required = 'reservations_urls:exact-court-edit'
     model = TennisCourt
     template_name = 'exact_court_params_edit.html'
     form_class = CourtsParamsEditForm
     success_url = reverse_lazy('reservations_urls:court-params-edit')
 
 
-
-class ReservationsDeleteList(ListView):
+class ReservationsDeleteList(PermissionRequiredMixin, ListView):
+    permission_required = 'reservations_urls:reservation-delete-list'
     template_name = 'reservation_delete_list.html'
     model = Reservation
     ordering = 'reservation_date'
 
 
-class DeleteReservation(DeleteView):
+class DeleteReservation(PermissionRequiredMixin, DeleteView):
+    permission_required = 'reservations_urls:reservation-delete'
     model = Reservation
     template_name = 'reservation_delete.html'
     success_url = reverse_lazy('reservations_urls:reservation-delete-list')
