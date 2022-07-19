@@ -20,7 +20,7 @@ class PasswordReset():
 
 class PasswordChangeView(auth_views.PasswordChangeView):
     template_name = 'password_change.html'
-    success_url = reverse_lazy("accounts_urls:login_main")
+    success_url = reverse_lazy("clients_urls:profile-panel")
 
 
 class Login(ListView):
